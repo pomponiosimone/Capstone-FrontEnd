@@ -7,9 +7,8 @@ function Footer() {
     return (
         <footer>
             <Container fluid>
-                <Row className="bg-secondary text-white p-5">
-                
-                    <Col xs={9} md={2} className="d-flex align-items-center">
+                <Row className="bg-secondary text-white pt-5 ps-5 pe-5 justify-content-center">
+                    <Col xs={4} md={4} lg={2} className="d-flex align-items-center mb-3">
                         <Image
                             src={Logo}
                             alt="company logo"
@@ -19,8 +18,7 @@ function Footer() {
                         />
                     </Col>
 
-                   
-                    <Col xs={9} md={3} className="mb-5">
+                    <Col xs={8} md={5} lg={4} className="mb-5">
                         <Nav className="flex-column fs-5">
                             <p className="titoli-footer mb-3 ms-3">
                                 <i className="bi bi-bank me-2"></i> Dove sono i nostri store?
@@ -32,11 +30,10 @@ function Footer() {
                         </Nav>
                     </Col>
 
-                   
-                    <Col xs={9} md={3} className="mb-5">
-                        <Nav className="flex-column fs-5">
+                    <Col xs={6} md={5} lg={3} className="mb-5">
+                        <Nav className="NavLink flex-column fs-5">
                             <p className="titoli-footer mb-3 ms-3">
-                            <i class="bi bi-calendar-date me-2"></i> Nostri Orari
+                            <i className="bi bi-calendar-date me-2"></i> Nostri Orari
                             </p>
                             <NavLink href="#" className="text-white">-Lunedi/Venerdi</NavLink>
                             <NavLink href="#" className="text-white">8:00/13:00 & 14:00/18:00</NavLink>
@@ -45,15 +42,14 @@ function Footer() {
                         </Nav>
                     </Col>
 
-                    
-                    <Col xs={9} md={4} className="mb-5">
-                        <p className="titoli-footer mb-3">
-                            <i className="bi bi-briefcase me-2"></i> CONTATTACI
+                    <Col xs={6} md={4} lg={3} className="mb-5">
+                        <p className="titoli-footer mb-3 ">
+                            <i className="bi bi-briefcase me-2"></i> Contattaci
                         </p>
-                        <h1 className="mb-3">Email: shoes@gmail.com</h1>
-                        <h1 className="mb-4">Telefono: 06 20752030</h1>
-                        <p className="titoli-footer mb-4 mt-5">
-                            <i className="bi bi-browser-safari me-2"></i> SEGUICI ANCHE SUI SOCIAL
+                        <h1 className="mb-3 ms-2 fs-5">Email: shoes@gmail.com</h1>
+                        <h1 className="mb-4 ms-2 fs-5">Telefono: 06 20752030</h1>
+                        <p className="titoli-footer mb-4 mt-5 ">
+                        <i class="bi bi-chat me-2"></i> Seguici anche sui social
                         </p>
                         <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                             <FaInstagram size={30} style={{ color: '#E1306C' }} />
