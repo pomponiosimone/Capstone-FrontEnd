@@ -10,8 +10,14 @@
         text-align: center; 
     }
 
-    .titoli-footer {
-        font-size: 1.1rem; 
+    .titoli-footer, .a {
+      font-size: 1rem; 
     }
+
+    .email,.telefono {
+        font-size: 1rem !important;
+    }
+
+    
 }
 

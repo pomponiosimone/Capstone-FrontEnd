@@ -22,12 +22,13 @@ function NavBar() {
             src={Logo}
             className="logo"
             alt="Logo"
-            style={{ width: '75px', height: '75px', marginRight: '10px' }}
+            style={{ width: '60px', height: '60px', marginRight: '10px' }}
           /> 
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className='testo-navbar' />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
           <Nav className="mx-auto d-flex align-items-center nav-links">
+          <Nav.Link href="#home" className="mx-3 navbar-custom-font">Chi Siamo?</Nav.Link>
             <Nav.Link href="#home" className="mx-3 navbar-custom-font">Home</Nav.Link>
             <NavDropdown title="Brand" id="basic-nav-dropdown" className="mx-3 navbar-custom-font">
               <NavDropdown.Item href=""> <img
@@ -52,6 +53,7 @@ function NavBar() {
             </NavDropdown>
             <Nav.Link href="#link" className="mx-3 navbar-custom-font">Contatti</Nav.Link>
           </Nav>
+       
           <Form className="d-flex justify-content-center align-items-center">
             <Form.Control
               type="search"
@@ -69,7 +71,7 @@ function NavBar() {
             </Button>
             <i className="bi bi-cart ms-4" style={{ fontSize: '24px', marginRight: '10px' }}></i>
           </Form>
-        </Navbar.Collapse>
+          </Navbar.Collapse>
       </Container>
     </Navbar>
   );
