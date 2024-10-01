@@ -21,16 +21,28 @@
         top:50px;
        height:120px
     }
-    h1{
+    .test-school{
         display:none;
     }
 }
 @media (max-width: 500px) {
-    .Bottone{ width: 180px;
-        top:45px;
-       height:110px
+    .Bottone{ width: 120px;
+        top:50px;
+       height:80px;
+       
     }
-    h1{
+    .title-school{
+        font-size: 0.7rem !important;
+        margin-bottom: 0 !important;
+    }
+.bottone-scoprire{
+    width:80px;
+    font-size:0.7rem;
+    height: 30px;
+    margin: 0;
+}
+
+    .test-school{
         display:none;
     }
 }

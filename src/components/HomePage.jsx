@@ -7,11 +7,11 @@ function HomePage() {
     return ( 
         <Container>
             <Row>
-                <Col xs={12} style={{ padding: 0, position: 'relative' }}>
+                <Col xs={12} style={{ padding: 0, position: 'relative', marginTop: 80 }}>
                     <div className="Bottone">
-                        <p className="fs-5 mb-3">Back to School</p>
-                        <h1>Scoprite la nostra selezione di sneakers per il back-to-school !</h1>
-                        <a href="#back-to-school" className="bg-dark text-light btn mt-2"> 
+                        <p className="title-school fs-5 mb-3">Back to School</p>
+                        <h1 className="test-school">Scoprite la nostra selezione di sneakers per il back-to-school !</h1>
+                        <a href="#back-to-school" className=" bottone-scoprire bg-dark text-light btn mt-2"> 
                             Scoprire
                         </a>
                     </div>

@@ -11,12 +11,13 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Adidas from '../assets/adidas.png'
 import Nike from '../assets/nike.png'
 import NewBalance from '../assets/newbalance.png'
+import { Link } from 'react-router-dom';
 
 
 function NavBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
+      <Container className="fixed-navbar">
         <Navbar.Brand className="d-flex">
           <img
             src={Logo}
@@ -29,7 +30,7 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
           <Nav className="mx-auto d-flex align-items-center nav-links">
           <Nav.Link href="#home" className="mx-3 navbar-custom-font">Chi Siamo?</Nav.Link>
-            <Nav.Link href="#home" className="mx-3 navbar-custom-font">Home</Nav.Link>
+            <Nav.Link href="/" className="mx-3 navbar-custom-font">Home</Nav.Link>
             <NavDropdown title="Brand" id="basic-nav-dropdown" className="mx-3 navbar-custom-font">
               <NavDropdown.Item href=""> <img
             src={Adidas}
@@ -51,7 +52,7 @@ function NavBar() {
             style={{ width: '18px', height: '15px', marginRight: '10px' }}/> New Balance</NavDropdown.Item>   
             
             </NavDropdown>
-            <Nav.Link href="#link" className="mx-3 navbar-custom-font">Contatti</Nav.Link>
+            <Nav.Link href="/contatti" className="mx-3 navbar-custom-font">Contatti</Nav.Link>
           </Nav>
        
           <Form className="d-flex justify-content-center align-items-center">
