@@ -27,39 +27,35 @@ const ShopCart = () => {
                     <h5>Cart: ({totalUniqueItems}) Total items: ({totalItems})</h5>
                     <table className="Table-cart table table-light table-hover mt-5">
                         <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Actions</th>
+                            <tr className="th-title text-center">
+                                <th>Immagine</th>
+                                <th>Sneakers</th>
+                                <th>Prezzo</th>
+                                <th>Quantità</th>
                             </tr>
                         </thead>
                         <tbody>
                             {items.map((item, index) => (
-                                <tr key={index}>
+                                <tr className="text-center" key={index}>
                                     <td>
                                         <img src={item.img} style={{ height: '50px' }} alt={item.title} />
                                     </td>
-                                    <td>{item.title}</td>
-                                    <td>${item.price}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>
-                                        <button 
+                                    <td className="fw-bold">{item.title}</td>
+                                    <td className="fw-bold">${item.price}</td> 
+                                    <td><button className="btn-shop me-2"
                                             onClick={() => updateItemQuantity(item.id, item.quantity - 1)} 
                                             disabled={item.quantity === 1} 
                                         >
                                             -
-                                        </button>
-                                        <button onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>+</button>
-                                        <button onClick={() => removeItem(item.id)}>Remove</button>
-                                    </td>
+                                        </button> {item.quantity}  <button className="btn-shop ms-2" onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>+</button> </td> 
+                                    
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    
                     <h5>Total: ${cartTotal.toFixed(2)}</h5> 
-                    <button onClick={emptyCart} className="btn btn-danger">Empty Cart</button>
+                    <button onClick={emptyCart} className="btn btn-danger">Svuota il Carrello</button>
                 </div>
             </div>
         </section>

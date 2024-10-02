@@ -53,7 +53,7 @@ const Contatti =  () => {
         </Form.Group>
 
        
-        <Button variant="primary" type="submit" className="w-100">
+        <Button variant="secondary" type="submit" className="w-100">
           Invia
         </Button>
       </Form>

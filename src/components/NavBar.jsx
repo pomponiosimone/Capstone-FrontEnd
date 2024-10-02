@@ -58,7 +58,7 @@ function NavBar() {
           <Form className="d-flex justify-content-center align-items-center">
             <Form.Control
               type="search"
-              placeholder="Cerca la tua scarpa preferita"
+              placeholder="Cerca la tua scarpa"
               className="me-2 search-input"
               aria-label="Search"
               style={{

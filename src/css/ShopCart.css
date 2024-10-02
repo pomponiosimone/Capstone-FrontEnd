@@ -10,3 +10,28 @@
 .Table-cart {
     height:48vh;
 }
+.btn-shop{
+    padding: 5px 7px;
+    font-size: 16px;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 40%;
+    box-shadow: 4px 4px 8px #bebebe,
+                -4px -4px 8px #ffffff;
+    cursor: pointer;
+    transition: box-shadow 0.5s ease;
+
+}
+
+.btn-shop:active {
+    box-shadow: inset 8px 8px 16px #bebebe,
+                inset -8px -8px 16px #ffffff;
+}
+th{ 
+    color: grey !important; 
+    font-weight: bold !important;
+}
+.th-title{
+    border-bottom: 1px solid rgb(156, 149, 149);
+}
