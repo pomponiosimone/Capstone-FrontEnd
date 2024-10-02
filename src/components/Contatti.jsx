@@ -5,9 +5,9 @@ import Card from 'react-bootstrap/Card';
 const Contatti =  () => {
     return(
 <Container>
-<Row>
-<Col xs={5}>
-<Card style={{ width: '18rem', marginTop:"100px", marginLeft:"100px"}}>
+<Row className="d-flexjustify-content-center align-items-center">
+<Col xs={12} md={8} lg={5}>
+<Card style={{ width: '18rem', marginTop:"120px", marginLeft:"100px"}}>
       <Card.Body> 
         <Card.Title className="text-center fw-bold"> <i class="bi bi-cash-stack"></i> Politica di Rimborso</Card.Title>
         <Card.Subtitle className="mb-2 text-muted text-center">Condizioni Per il Rimborso</Card.Subtitle>
@@ -17,7 +17,7 @@ const Contatti =  () => {
         </Card.Text>
       </Card.Body>
     </Card>
-    <Card style={{ width: '18rem', marginTop:"50px", marginLeft:"100px"}}>
+    <Card style={{ width: '18rem', marginTop:"50px", marginLeft:"100px"}} >
       <Card.Body> 
         <Card.Title className="text-center fw-bold"> <i class="bi bi-chat-right-dots me-2"></i>Contattaci</Card.Title>
         <Card.Subtitle className="mb-2 text-muted text-center">Hai domande, richieste o desideri maggiori informazioni? </Card.Subtitle>
@@ -26,7 +26,7 @@ const Contatti =  () => {
       </Card.Body>
     </Card>
     </Col>
-    <Col style={{marginTop:"100px"}} xs={7}>
+    <Col style={{marginTop:"100px"}} xs={12} md={9} lg={5}>
     <Form>
         
         <Form.Group className="mb-3" controlId="formBasicName">

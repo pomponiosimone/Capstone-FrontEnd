@@ -70,7 +70,8 @@ function NavBar() {
             <Button variant="outline-secondary" className="search-btn" style={{ borderRadius: '50%' }}>
               <i className="bi bi-search" style={{ fontSize: '1.2rem', color: '#000' }}></i>
             </Button>
-            <i className="bi bi-cart ms-4" style={{ fontSize: '24px', marginRight: '10px' }}></i>
+            <Nav.Link href="/shop">
+            <i className="bi bi-cart ms-4" style={{ fontSize: '24px', marginRight: '10px' }}></i> </Nav.Link>
           </Form>
           </Navbar.Collapse>
       </Container>

@@ -1,0 +1,102 @@
+[
+    {
+      "id": 1,
+      "nome": "Nike Air Max 90",
+      "marca": "Nike",
+      "prezzo": 120.00,
+      "colore": "bianco",
+      "taglie": [38, 39, 40, 41, 42, 43],
+      "immagine": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/wzitsrb4oucx9jukxsmc/AIR+MAX+90.png",
+      "descrizione": "Scarpe comode e stilose con tecnologia Air Max."
+    },
+    {
+      "id": 2,
+      "nome": "Adidas Ultraboost",
+      "marca": "Adidas",
+      "prezzo": 140.00,
+      "colore": "nero",
+      "taglie": [40, 41, 42, 43, 44, 45],
+      "immagine": "https://static.ftshp.digital/img/p/8/1/6/1/2/5/816125-full_product.jpg",
+      "descrizione": "Scarpe running con ammortizzazione Boost."
+    },
+    {
+      "id": 3,
+      "nome": "Puma RS-X3",
+      "marca": "Puma",
+      "prezzo": 110.00,
+      "colore": "rosso",
+      "taglie": [39, 40, 41, 42, 43],
+      "immagine": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/369143/02/sv01/fnd/EEA/fmt/png/Scarpe-da-ginnastica-da-donna-PUMA-Vikky-Stacked",
+      "descrizione": "Sneaker rétro con un tocco moderno."
+    },
+    {
+      "id": 4,
+      "nome": "New Balance 574",
+      "marca": "New Balance",
+      "prezzo": 100.00,
+      "colore": "grigio",
+      "taglie": [40, 41, 42, 43, 44],
+      "immagine": "https://i8.amplience.net/i/jpl/jd_707912_a?qlt=92&w=600&h=425&v=1&fmt=auto",
+      "descrizione": "Scarpa iconica dal design classico e confortevole."
+    },
+    {
+      "id": 5,
+      "nome": "Converse Chuck Taylor All Star",
+      "marca": "Converse",
+      "prezzo": 70.00,
+      "colore": "blu",
+      "taglie": [38, 39, 40, 41, 42, 43, 44],
+      "immagine": "https://esempio.com/converse-chuck-taylor.jpg",
+      "descrizione": "Le classiche sneakers alte, adatte a qualsiasi outfit."
+    },
+    {
+      "id": 6,
+      "nome": "Vans Old Skool",
+      "marca": "Vans",
+      "prezzo": 85.00,
+      "colore": "nero",
+      "taglie": [38, 39, 40, 41, 42, 43],
+      "immagine": "https://esempio.com/vans-old-skool.jpg",
+      "descrizione": "Scarpe da skateboard con un tocco vintage."
+    },
+    {
+      "id": 7,
+      "nome": "Reebok Club C 85",
+      "marca": "Reebok",
+      "prezzo": 90.00,
+      "colore": "bianco",
+      "taglie": [39, 40, 41, 42, 43, 44],
+      "immagine": "https://esempio.com/reebok-club-c-85.jpg",
+      "descrizione": "Sneaker pulita e versatile, ideale per tutti i giorni."
+    },
+    {
+      "id": 8,
+      "nome": "Asics Gel-Kayano 27",
+      "marca": "Asics",
+      "prezzo": 160.00,
+      "colore": "grigio",
+      "taglie": [41, 42, 43, 44, 45],
+      "immagine": "https://esempio.com/asics-gel-kayano-27.jpg",
+      "descrizione": "Scarpe da running con ammortizzazione in gel per un comfort eccezionale."
+    },
+    {
+      "id": 9,
+      "nome": "Saucony Jazz Original",
+      "marca": "Saucony",
+      "prezzo": 95.00,
+      "colore": "verde",
+      "taglie": [40, 41, 42, 43, 44],
+      "immagine": "https://esempio.com/saucony-jazz.jpg",
+      "descrizione": "Sneaker rétro con uno stile casual e dinamico."
+    },
+    {
+      "id": 10,
+      "nome": "Under Armour HOVR Phantom",
+      "marca": "Under Armour",
+      "prezzo": 150.00,
+      "colore": "nero",
+      "taglie": [39, 40, 41, 42, 43, 44, 45],
+      "immagine": "https://esempio.com/ua-hovr-phantom.jpg",
+      "descrizione": "Scarpe da corsa con tecnologia HOVR per un'ammortizzazione superiore."
+    }
+  ]

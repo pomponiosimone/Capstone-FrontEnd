@@ -27,11 +27,11 @@ function HomePage() {
                     />
                 </Col>
                 <p className="fs-3 mt-5">Back to school</p>
-                <Card/> <Card/> <Card/> <Card/>
+                <Card/> 
                 <p className="fs-3 mt-5">Back to school</p>
-                <Card/> <Card/> <Card/> <Card/>
+                <Card/> 
                 <p id="back-to-school" className="fs-3 mt-5">Back to school</p> 
-                <Card/> <Card/> <Card/> <Card/>
+                <Card/> 
             </Row>
         </Container>
     )
