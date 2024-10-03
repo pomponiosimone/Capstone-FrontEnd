@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 
 
 function NavBar() {
-  return (
+  return ( 
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container className="fixed-navbar">
         <Navbar.Brand className="d-flex">

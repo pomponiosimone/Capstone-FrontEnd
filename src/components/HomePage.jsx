@@ -4,10 +4,12 @@ import Card from "./Card";
 import '../css/HomePage.css';
 
 function HomePage() {
+    
     return ( 
         <Container>
             <Row>
                 <Col xs={12} style={{ padding: 0, position: 'relative', marginTop: 80 }}>
+               
                     <div className="Bottone">
                         <p className="title-school fs-5 mb-3">Back to School</p>
                         <h1 className="test-school">Scoprite la nostra selezione di sneakers per il back-to-school !</h1>
