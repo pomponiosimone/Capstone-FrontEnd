@@ -1,0 +1,21 @@
+.card-custom {
+    border: none; 
+    box-shadow: 10px 4px 20px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s; 
+    max-height: 30%;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px); 
+}
+
+.prezzo {
+    text-align: center;
+}
+.btn-carrello-card{
+    border-radius: 50%;
+    padding:10px;
+    background-color: whitesmoke;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1); 
+    border: none;
+}

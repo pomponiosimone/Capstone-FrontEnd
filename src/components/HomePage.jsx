@@ -2,12 +2,13 @@ import { Container, Row, Col } from "react-bootstrap";
 import fotohome from '../assets/fotohome.jpg';
 import Card from "./Card";
 import '../css/HomePage.css';
+import "react-multi-carousel/lib/styles.css";
 
 function HomePage() {
     
     return ( 
-        <Container>
-            <Row>
+        <Container fluid>
+            <Row className="pe-5 ps-5">
                 <Col xs={12} style={{ padding: 0, position: 'relative', marginTop: 80 }}>
                
                     <div className="Bottone">
@@ -20,7 +21,7 @@ function HomePage() {
                     <img 
                         src={fotohome} 
                         alt="Descrizione dell'immagine" 
-                        className="mt-4"
+                     
                         style={{ 
                             width: '100%', 
                             height: 'auto', 
@@ -28,9 +29,10 @@ function HomePage() {
                         }} 
                     />
                 </Col>
-                <p className="fs-3 mt-5">Back to school</p>
+                <p className="fs-3 mt-5">Nuovi Arrivi</p>
+              
                 <Card/> 
-                <p className="fs-3 mt-5">Back to school</p>
+                <p className="fs-3 mt-5">Più acquistate</p>
                 <Card/> 
                 <p id="back-to-school" className="fs-3 mt-5">Back to school</p> 
                 <Card/> 

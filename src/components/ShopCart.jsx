@@ -89,7 +89,7 @@ const ShopCart = () => {
                   
                     
                    <Container fluid>
-                    <Row className="justify-content-center">
+                    <Row className="d-flex justify-content-center">
 
                     
                   <Col xs={3} lg={3}> <h1 className="fs-5 me-5 ">Totale: ${cartTotal.toFixed(2)}</h1> </Col>
@@ -124,45 +124,4 @@ export default ShopCart;
 
 
 
-
-
-
-/* const ShopCart = () => {
-  const [carts, setCarts] = useState([]);
-
-  const addToCart = (scarpe_id) => {
-    const positionThisProductInCart = carts.findIndex(
-      (item) => item.scarpe_id === scarpe_id
-    );
-
-    if (carts.length <= 0) {
-   
-      setCarts([{ scarpe_id: scarpe_id, quantity: 1 }]);
-    } else if (positionThisProductInCart < 0) {
-      
-      setCarts([...carts, { scarpe_id: scarpe_id, quantity: 1 }]);
-    } else {
-      
-      const updatedCarts = carts.map((item, index) =>
-        index === positionThisProductInCart
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-      setCarts(updatedCarts);
-    }
-  };
-
-  return (
-    <div>
-      <h3>Carrello</h3>
-      <ul>
-        {carts.map((item, index) => (
-          <li key={index}>
-            Scarpe ID: {item.scarpe_id}, Quantità: {item.quantity}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};*/
 
