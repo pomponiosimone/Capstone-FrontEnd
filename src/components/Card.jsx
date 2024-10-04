@@ -1,11 +1,13 @@
-import Button from 'react-bootstrap/Button';
+
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import React, { useEffect, useState } from "react";
 import { useCart } from 'react-use-cart';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import '../css/Card.css'
+import '../css/Card.css';
+import { Link } from 'react-router-dom';
+
 const responsive = {
     superLargeDesktop: {
         breakpoint: { max: 4000, min: 3000 },
@@ -27,54 +29,96 @@ const responsive = {
 
 const CardShoes = () => {
     const [scarpe, setScarpe] = useState([]);
+    const [selectedSizes, setSelectedSizes] = useState({}); 
     const { addItem } = useCart();
 
     useEffect(() => {
-        fetch('/shoes.json') 
+        fetch('/shoes.json')
             .then(response => response.json())
             .then(data => setScarpe(data))
             .catch(error => console.error("Errore nel caricamento dei dati:", error));
     }, []);
 
+    
+    const handleSizeChange = (scarpaId, size) => {
+        setSelectedSizes(prevState => ({
+            ...prevState,
+            [scarpaId]: size 
+        }));
+    };
+
     const handleAddToCart = (scarpa) => {
+        const selectedSize = selectedSizes[scarpa.id]; 
+
+        if (!selectedSize) {
+            alert('Seleziona una taglia prima di aggiungere al carrello!');
+            return;
+        }
+
         const item = {
             id: scarpa.id,           
             title: scarpa.nome,      
             price: scarpa.prezzo,    
-            img: scarpa.immagine,     
-            quantity: 1               
+            img: scarpa.immagine,    
+            size: selectedSize,      
+            quantity: 1              
         };
 
         addItem(item); 
     };
-
     return (
         <Carousel responsive={responsive}>
         {scarpe.map((scarpa) => (
             <Col key={scarpa.id} style={{ marginTop: '10px', marginLeft: "10px", marginRight: "30px", marginBottom:'10px'}}>
                 <Card style={{ width: '100%'  }} className="border-0 shadow"> 
+                <Link to={`/card-details/${scarpa.id}`}>
                     <Card.Img
                         variant="top"
                         src={scarpa.immagine}
                         alt={scarpa.nome}
                         style={{ height: '200px', objectFit: 'contain' }}
-                    />
+                    /> </Link>
                     <Card.Body>
+                    
                         <Card.Title className="text-center">{scarpa.nome}</Card.Title>
-                        <h1 className="prezzo">{`€${scarpa.prezzo}`}</h1>
+                        
+                        <div className="d-flex justify-content-center align-items-center">
+                        <h1 className="prezzo me-4">{`€${scarpa.prezzo}`}</h1>
+
+                        
+                      
+                            <label htmlFor={`size-select-${scarpa.id}`}></label>
+                            <select 
+                                id={`size-select-${scarpa.id}`}
+                                value={selectedSizes[scarpa.id] || ''}
+                                onChange={(e) => handleSizeChange(scarpa.id, e.target.value)}
+                                className="form-select"
+                            >
+                                <option  value="">taglia</option>
+                                {scarpa.taglie.map((size) => (
+                                    <option key={size} value={size}>
+                                        {size}
+                                    </option>
+                                    
+                                ))}
+                            </select>
+                        </div>
+
                         <div className="d-flex justify-content-end mt-3">
                             <button className="btn-carrello-card"
-                               
-                                onClick={() => handleAddToCart(scarpa)} 
+                                onClick={() => handleAddToCart(scarpa)}
                             >
                                  <i className="bi bi-cart" style={{ fontSize: '20px'}}></i> 
                             </button>
+                         
                         </div>
+                        
                     </Card.Body>
                 </Card>
+                
             </Col>
         ))}
-    </Carousel>
+        </Carousel>
     );
 };
 

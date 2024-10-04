@@ -8,6 +8,7 @@ import Contatti from './components/Contatti';
 import ShopCart from './components/ShopCart';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider } from 'react-use-cart'; 
+import CardDetails from './components/CardDetails';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/contatti" element={<Contatti />} />
           <Route path="/shop" element={<ShopCart />} />
+          <Route path="/card-details/:id" element={<CardDetails/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

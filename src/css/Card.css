@@ -17,5 +17,16 @@
     padding:10px;
     background-color: whitesmoke;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1); 
-    border: none;
+    border: 0.5px black solid;
+}
+.form-select {
+    width: 100px;
+}
+.btn-carrello-card-details{
+    width:200px;
+    height: 70px;
+    border-radius: 50px;
+    margin-top: 100px;
+    
+
 }

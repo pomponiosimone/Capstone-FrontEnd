@@ -43,7 +43,7 @@ const ShopCart = () => {
         console.error('Errore durante la transazione ', err);
         alert('Si è verificato un errore durante la transazione.');
     };
-  
+
     const clienteId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
     return (
         <section className="py-4 container">
@@ -65,8 +65,9 @@ const ShopCart = () => {
                                     <td>
                                         <img src={item.img} style={{ height: '50px' }} alt={item.title} />
                                     </td>
-                                    <td className="fw-bold">{item.title}</td>
-                                    <td className="fw-bold">${item.price}</td> 
+                                    <td className="fw-bold">{item.title}  {item.size}  </td>
+                                   
+                                    <td className="fw-bold">{item.price} €</td> 
                                     <td>
                                         <button className="btn-shop me-2"
                                             onClick={() => updateItemQuantity(item.id, item.quantity - 1)} 
@@ -85,14 +86,14 @@ const ShopCart = () => {
                             
                         </tbody>
                     </table>
-                    
+                   
                   
                     
                    <Container fluid>
                     <Row className="d-flex justify-content-center">
 
                     
-                  <Col xs={3} lg={3}> <h1 className="fs-5 me-5 ">Totale: ${cartTotal.toFixed(2)}</h1> </Col>
+                  <Col xs={3} lg={3}> <h1 className="fs-5 me-5 ">Totale:  €  {cartTotal.toFixed(2)}</h1> </Col>
                   <Col xs={7} lg={8}>  <PayPalScriptProvider  options={{ "client-id": clienteId }}>
          
                         <PayPalButtons className="btn-paypals"

@@ -11,7 +11,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Adidas from '../assets/adidas.png'
 import Nike from '../assets/nike.png'
 import NewBalance from '../assets/newbalance.png'
-import { Link } from 'react-router-dom';
+
 
 
 function NavBar() {
@@ -52,7 +52,7 @@ function NavBar() {
             style={{ width: '18px', height: '15px', marginRight: '10px' }}/> New Balance</NavDropdown.Item>   
             
             </NavDropdown>
-            <Nav.Link href="/contatti" className="mx-3 navbar-custom-font">Contatti</Nav.Link>
+            <Nav.Link href="/contatti" className="mx-3 navbar-custom-font">Help</Nav.Link>
           </Nav>
        
           <Form className="d-flex justify-content-center align-items-center">
@@ -66,13 +66,13 @@ function NavBar() {
                 paddingLeft: '15px',
                 width: '250px',
               }}
-            />
+            /> 
             <Button variant="outline-secondary" className="search-btn" style={{ borderRadius: '50%' }}>
               <i className="bi bi-search" style={{ fontSize: '1.2rem', color: '#000' }}></i>
             </Button>
             <Nav.Link href="/shop">
             <i className="bi bi-cart ms-4" style={{ fontSize: '24px', marginRight: '10px' }}></i> </Nav.Link>
-          </Form>
+            </Form>
           </Navbar.Collapse>
       </Container>
     </Navbar>
