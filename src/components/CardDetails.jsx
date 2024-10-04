@@ -51,10 +51,10 @@ const CardDetails = () => {
     if (!scarpa) return <div>Caricamento...</div>;
 
     return (
-        <Container>
+        <Container style={{minHeight:'62vh'}}>
             <Row className="d-flex justify-content-center align-items-center mt-5 mb-5">
                 <Col xs={12} md={12} lg={6} className="mt-5">
-                    <img src={scarpa.immagine} style={{ height: '250px' }} alt={scarpa.nome} />
+                    <img src={scarpa.immagine} className="img-card-details" alt={scarpa.nome} />
                 </Col>
                 <Col xs={12} md={12} lg={6} className="mt-5">
                     <h1 className="fw-bold fs-1">{scarpa.nome}</h1>
@@ -65,9 +65,9 @@ const CardDetails = () => {
                     <select
                         value={selectedSize}
                         onChange={(e) => setSelectedSize(e.target.value)}
-                        className="form-select"
+                        className="form-select ms-2"
                     >
-                        <option value="">Seleziona una taglia</option>
+                        <option value="">Taglia</option>
                         {scarpa.taglie.map((size) => (
                             <option key={size} value={size}>
                                 {size}
@@ -76,26 +76,15 @@ const CardDetails = () => {
                     </select>
 
                     <button 
-                        className="btn-carrello-card-details mt-3" 
+                        className="btn-carrello-card-details mt-3 mb-3" 
                         onClick={handleAddToCart}
                     >
-                        Aggiungi al carrello
-                    </button>
-
-                   
-                    {items.some(item => item.id === scarpa.id && item.size === selectedSize) && (
-                        <div className="mt-3">
-                            <button
-                                className="btn-shop"
-                                onClick={() => {
-                                    const existingItem = items.find(item => item.id === scarpa.id && item.size === selectedSize);
-                                    updateItemQuantity(existingItem.id, existingItem.quantity + 1);
-                                }}
-                            >
-                                +
-                            </button>
-                        </div>
-                    )}
+                        Aggiungi al carrello 
+                    </button> <hr></hr>       
+<h1 className="mt-4 fs-5"> <i className="bi bi-check-circle-fill text-success" style={{ fontSize: '24px' }}></i> Ritiro disponibile tutte le sedi dei nostri store</h1>
+<h1 className="mt-2 fs-5"> <i className="bi bi-car-front me-2"></i>Spedizione <span style={{ fontWeight:"bold", color: '#198754'}}> GRATUITA </span> entro 24/48h in tutta Italia.</h1>
+                
+                 
                 </Col>
             </Row>
         </Container>

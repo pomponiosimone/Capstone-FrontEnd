@@ -21,7 +21,7 @@ function Footer() {
                     <Col xs={8} md={4} lg={3} className="mb-5">
                         <Nav className="flex-column fs-5">
                             <p className="titoli-footer mb-3">
-                                <i className="bi bi-bank me-2"></i> Dove sono i nostri store?
+                                <i id="store" className="bi bi-bank me-2"></i> Dove sono i nostri store?
                             </p>
                             <NavLink href="#" className="a text-white">Roma, Via delle Vigne Nuove, 45</NavLink>
                             <NavLink href="#" className="a text-white">Milano, Via Ostiense, 30</NavLink>
