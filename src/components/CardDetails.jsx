@@ -56,7 +56,7 @@ const CardDetails = () => {
             };
 
             addItem(item);
-        }
+        };
     
 
     if (!scarpa) return <div>Caricamento...</div>;
@@ -89,8 +89,8 @@ const CardDetails = () => {
                     
                     <button 
                         className="btn-carrello-card-details mt-3 mb-3" 
-                        onClick={handleAddToCart}
-                    >
+                        onClick={() => handleAddToCart(scarpa)}
+                        >
                         Aggiungi al carrello 
                     </button> <hr></hr>       
 <h1 className="mt-4 fs-5"> <i className="bi bi-check-circle-fill text-success" style={{ fontSize: '24px' }}></i> Ritiro disponibile in tutti i nostri store</h1>
