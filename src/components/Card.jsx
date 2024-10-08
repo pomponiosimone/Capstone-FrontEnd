@@ -18,11 +18,11 @@ const responsive = {
         items: 4
     },
     tablet: {
-        breakpoint: { max: 1024, min: 464 },
+        breakpoint: { max: 1024, min: 600 },
         items: 2 
     },
     mobile: {
-        breakpoint: { max: 464, min: 0 },
+        breakpoint: { max: 600, min: 0 },
         items: 1 
     }
 };
@@ -31,13 +31,28 @@ const CardShoes = () => {
     const [scarpe, setScarpe] = useState([]);
     const [selectedSizes, setSelectedSizes] = useState({}); 
     const { addItem } = useCart();
-
+    const token = import.meta.env.VITE_TOKEN
     useEffect(() => {
-        fetch('/shoes.json')
-            .then(response => response.json())
-            .then(data => setScarpe(data))
-            .catch(error => console.error("Errore nel caricamento dei dati:", error));
-    }, []);
+       
+        fetch('http://localhost:3002/scarpa', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json' 
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Errore: ${response.status}`); 
+            }
+            return response.json(); 
+        })
+        .then(data => {
+             
+            setScarpe(data.content || []); 
+        })
+        .catch(error => console.error("Errore nel caricamento dei dati:", error));
+    }, []); 
 
     
     const handleSizeChange = (scarpaId, size) => {
@@ -66,6 +81,7 @@ const CardShoes = () => {
 
         addItem(item); 
     };
+  
     return (
         <Carousel responsive={responsive}>
         {scarpe.map((scarpa) => (
@@ -89,19 +105,18 @@ const CardShoes = () => {
                       
                             <label htmlFor={`size-select-${scarpa.id}`}></label>
                             <select 
-                                id={`size-select-${scarpa.id}`}
-                                value={selectedSizes[scarpa.id] || ''}
-                                onChange={(e) => handleSizeChange(scarpa.id, e.target.value)}
-                                className="form-select"
-                            >
-                                <option  value="">taglia</option>
-                                {scarpa.taglie.map((size) => (
-                                    <option key={size} value={size}>
-                                        {size}
-                                    </option>
-                                    
-                                ))}
-                            </select>
+  id={`size-select-${scarpa.id}`}
+  value={selectedSizes[scarpa.id] || ''}
+  onChange={(e) => handleSizeChange(scarpa.id, e.target.value)}
+  className="form-select"
+>
+  <option value="">Taglia</option>
+  {scarpa.taglie.map((size) => (
+    <option key={size.id} value={size.taglia}>
+      {size.taglia} - {size.quantità} disponibili
+    </option>
+  ))}
+</select>
                         </div>
 
                         <div className="d-flex justify-content-end mt-3">

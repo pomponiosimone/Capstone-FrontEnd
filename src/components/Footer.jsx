@@ -8,15 +8,15 @@ function Footer() {
         <footer>
             <Container fluid>
                 <Row className="bg-secondary text-white pt-4 ps-4 pe-4 mt-4 justify-content-center">
-                    <Col xs={5} md={5} lg={2} className="d-flex align-items-center mb-3">
-                        <Image
+                    <Col xs={5} md={5} lg={2} className="d-flex align-items-center mb-3"> 
+                       <div> <Image 
                             src={Logo}
                             alt="company logo"
                             rounded
                             width={140}
                             height={140}
-                        />
-                    </Col>
+                        />     <p>Area Riservata</p> </div>
+                    </Col> 
 
                     <Col xs={8} md={4} lg={3} className="mb-5">
                         <Nav className="flex-column fs-5">
@@ -49,7 +49,7 @@ function Footer() {
                         <h1 className="email mb-3 ms-2 fs-5">Email: shoes@gmail.com</h1>
                         <h1 className="telefono mb-4 ms-2 fs-5">Telefono: 06 20752030</h1>
                         <p className="titoli-footer mb-4 mt-5 ">
-                        <i class="bi bi-chat me-2"></i> Seguici anche sui social
+                        <i className="bi bi-chat me-2"></i> Seguici anche sui social
                         </p>
                         <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                             <FaInstagram size={30} style={{ color: '#E1306C' }} />
