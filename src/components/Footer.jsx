@@ -15,7 +15,7 @@ function Footer() {
                             rounded
                             width={140}
                             height={140}
-                        />     <p>Area Riservata</p> </div>
+                        />     <NavLink href="/loginAdmin">Area Riservata</NavLink> </div>
                     </Col> 
 
                     <Col xs={8} md={4} lg={3} className="mb-5">

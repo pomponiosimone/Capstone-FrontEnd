@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider } from 'react-use-cart'; 
 import CardDetails from './components/CardDetails';
 import Brand from './components/Brand'
+import LoginAdmin  from './components/loginAdmin';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/:marca" element={<Brand />} />
           <Route path="/shop" element={<ShopCart />} />
           <Route path="/card-details/:id" element={<CardDetails/>}/>
+          <Route path="/loginAdmin" element={<LoginAdmin/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>
