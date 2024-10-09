@@ -14,11 +14,11 @@ const responsive = {
         items: 4 
     },
     desktop: {
-        breakpoint: { max: 3000, min: 1024 },
+        breakpoint: { max: 3000, min: 1300 },
         items: 4
     },
     tablet: {
-        breakpoint: { max: 1024, min: 600 },
+        breakpoint: { max: 1300, min: 600 },
         items: 2 
     },
     mobile: {
@@ -34,7 +34,7 @@ const CardShoes = () => {
     const token = import.meta.env.VITE_TOKEN
     useEffect(() => {
        
-        fetch('http://localhost:3002/scarpa/view', {
+        fetch('http://localhost:3002/scarpa/view/all', {
             method: 'GET',
             headers: {
                

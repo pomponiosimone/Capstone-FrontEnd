@@ -7,7 +7,7 @@
 }
 @media (max-width: 1700px) {
 .card-body{
-    min-height:25vh;
+    min-height:18vh;
 }}
 
 .card-custom:hover {

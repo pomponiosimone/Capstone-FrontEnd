@@ -12,7 +12,7 @@ const CardDetails = () => {
     const token = import.meta.env.VITE_TOKEN
     useEffect(() => {
         
-        fetch('http://localhost:3002/scarpa/view', {
+        fetch('http://localhost:3002/scarpa/view/all', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
