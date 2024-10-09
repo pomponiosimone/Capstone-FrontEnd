@@ -14,7 +14,7 @@ const Brand = () => {
     const [scarpe, setScarpe] = useState([]);
     useEffect(()=> {
 
-        fetch( `http://localhost:3002/scarpa/${marca} `, {
+        fetch( `http://localhost:3002/scarpa/view/${marca} `, {
         method: 'GET',
         headers: {
             'Authorization' :  `Bearer ${token}`,

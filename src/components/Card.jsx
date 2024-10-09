@@ -34,10 +34,10 @@ const CardShoes = () => {
     const token = import.meta.env.VITE_TOKEN
     useEffect(() => {
        
-        fetch('http://localhost:3002/scarpa', {
+        fetch('http://localhost:3002/scarpa/view', {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
+               
                 'Content-Type': 'application/json' 
             }
         })

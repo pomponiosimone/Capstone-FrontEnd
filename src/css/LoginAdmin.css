@@ -1,13 +1,18 @@
 
 .containers{
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     background: url('../assets/login.jpg') no-repeat;
     background-size: cover;
     background-position: center;
-    margin-top: 90px;
-    height: 59vh;
+    top:00px;
+    right:0px;
+    left:0px;
+    bottom:0px;
+    z-index:10000;
+    height: 100vh;
 }
 
 .wrapper {
