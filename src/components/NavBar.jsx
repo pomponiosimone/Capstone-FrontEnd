@@ -32,20 +32,21 @@ function NavBar() {
           <Nav.Link href="#home" className="mx-3 navbar-custom-font">Chi Siamo?</Nav.Link>
             <Nav.Link href="/" className="mx-3 navbar-custom-font">Home</Nav.Link>
             <NavDropdown title="Brand" id="basic-nav-dropdown" className="mx-3 navbar-custom-font">
-              <NavDropdown.Item href=""> <img
+              <NavDropdown.Item href="/Adidas"> <img
             src={Adidas}
             className="logo"
             alt="Logo"
             style={{ width: '18px', height: '18px', marginRight: '10px' }}
           /> Adidas</NavDropdown.Item> 
               <Dropdown.Divider/>
-              <NavDropdown.Item href="">  <img
+              
+              <NavDropdown.Item href="/Nike">  <img
             src={Nike}
             className="logo"
             alt="Logo"
-            style={{ width: '25px', height: '8x', marginRight: '4px' }}/> Nike</NavDropdown.Item>  
+            style={{ width: '25px', height: '8x', marginRight: '4px' }}/> Nike</NavDropdown.Item>
               <Dropdown.Divider/>
-              <NavDropdown.Item href="">  <img
+              <NavDropdown.Item href="/New Balance">  <img
             src={NewBalance}
             className="logo"
             alt="Logo"
