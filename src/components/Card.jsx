@@ -31,7 +31,7 @@ const CardShoes = () => {
     const [scarpe, setScarpe] = useState([]);
     const [selectedSizes, setSelectedSizes] = useState({}); 
     const { addItem } = useCart();
-    const token = import.meta.env.VITE_TOKEN
+ 
     useEffect(() => {
        
         fetch('http://localhost:3002/scarpa/view/all', {

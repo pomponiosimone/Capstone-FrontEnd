@@ -9,13 +9,13 @@ const CardDetails = () => {
     const [scarpa, setScarpa] = useState(null);
     const [selectedSizes, setSelectedSizes] = useState({});
     const { addItem, updateItemQuantity, items } = useCart(); 
-    const token = import.meta.env.VITE_TOKEN
+    
     useEffect(() => {
         
         fetch('http://localhost:3002/scarpa/view/all', {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                
                 'Content-Type': 'application/json' 
             }
         })
