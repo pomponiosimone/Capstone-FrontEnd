@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import '../css/Card.css';
 
-const token = import.meta.env.VITE_TOKEN
+
 const Brand = () => {
     const {marca} = useParams();
     const [selectedSizes, setSelectedSizes] = useState({}); 
@@ -17,7 +17,7 @@ const Brand = () => {
         fetch( `http://localhost:3002/scarpa/view/${marca} `, {
         method: 'GET',
         headers: {
-            'Authorization' :  `Bearer ${token}`,
+           
             'Content-Type': 'application/json' 
         }
     })

@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import '../css/LoginAdmin.css';
 const LoginAdmin = () => {
 
-  /*const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -30,7 +28,7 @@ const LoginAdmin = () => {
       const result = await response.json(); 
 
       if (response.ok) {
-       
+        navigate('/menuAdmin')
         alert('Login successful!');
        
       } else {
@@ -41,11 +39,11 @@ const LoginAdmin = () => {
     
       alert('An error occurred. Please try again later.');
     }
-  };*/
+  };
   return (
     <div className="containers">
         <div className="wrapper">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h1>Login</h1>
 
                 <div className="input-box">
@@ -54,6 +52,8 @@ const LoginAdmin = () => {
                         className="form-control" 
                         id="email" 
                         placeholder="Enter email" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
@@ -61,7 +61,9 @@ const LoginAdmin = () => {
                 <div className="input-box">
                     <input 
                         type="password" 
-                        placeholder="Password" 
+                        placeholder="Password"
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <i className="bx bxs-lock-alt"></i>

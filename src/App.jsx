@@ -11,6 +11,8 @@ import { CartProvider } from 'react-use-cart';
 import CardDetails from './components/CardDetails';
 import Brand from './components/Brand'
 import LoginAdmin  from './components/loginAdmin';
+import MenuAdmin from './components/MenuAdmin'
+import GestioneAdmin from './components/GestioneAdmin';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/shop" element={<ShopCart />} />
           <Route path="/card-details/:id" element={<CardDetails/>}/>
           <Route path="/loginAdmin" element={<LoginAdmin/>}/>
+          <Route path="/menuAdmin" element={<MenuAdmin/>}/>
+          <Route path="/gestione-admin" element={<GestioneAdmin/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>
