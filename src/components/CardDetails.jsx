@@ -6,97 +6,110 @@ import '../css/Card.css';
 
 const CardDetails = () => {
     const { id } = useParams(); 
-    const [scarpa, setScarpa] = useState(null);
+    const [scarpe, setScarpa] = useState(null);
     const [selectedSizes, setSelectedSizes] = useState({});
     const { addItem, updateItemQuantity, items } = useCart(); 
     
     useEffect(() => {
-        
         fetch('http://localhost:3002/scarpa/view/all', {
             method: 'GET',
             headers: {
-                
                 'Content-Type': 'application/json' 
             }
         })
-       
-            .then(response => response.json())
-            .then(data => {  
-                const foundShoe = data.content.find(item => item.id === id);
-                setScarpa(foundShoe);
-            })
-            .catch(error => console.error("Errore nel caricamento dei dati:", error));
+        .then(response => response.json())
+        .then(data => {  
+            const foundShoe = data.content.find(item => item.id === id);
+            setScarpa(foundShoe);
+        })
+        .catch(error => console.error("Errore nel caricamento dei dati:", error));
     }, [id]);
 
     const handleSizeChange = (scarpaId, size) => {
-        setSelectedSizes(prevState => ({
-            ...prevState,
-            [scarpaId]: size 
-        }));
+        const selectedSize = scarpe.taglie.find(taglia => taglia.taglia === parseInt(size));
+
+        if (selectedSize) {
+            setSelectedSizes(prevState => ({
+                ...prevState,
+                [scarpaId]: {
+                    size: selectedSize.taglia,
+                    id: selectedSize.id
+                }
+            }));
+        } else {
+            console.error('Taglia selezionata non trovata:', size);
+        }
     };
 
     const handleAddToCart = (scarpa) => {
-        const selectedSize = selectedSizes[scarpa.id]; 
+        const selectedSizeInfo = selectedSizes[scarpa.id];
 
-        if (!selectedSize) {
+        if (!selectedSizeInfo) {
             alert('Seleziona una taglia prima di aggiungere al carrello!');
             return;
         }
 
-      
-        
-       
-            const item = {
-                id: scarpa.id,
-                title: scarpa.nome,
-                price: scarpa.prezzo,
-                img: scarpa.immagine,
-                size: selectedSize,
-                quantity: 1
-            };
-
-            addItem(item);
+        const item = {
+            id: `${scarpa.id}_${selectedSizeInfo.size}`,  
+            title: scarpa.nome,
+            price: scarpa.prezzo,
+            img: scarpa.immagine,
+            size: selectedSizeInfo.size,
+            sizeId: selectedSizeInfo.id,
+            quantity: 1
         };
-    
 
-    if (!scarpa) return <div>Caricamento...</div>;
+        addItem(item); 
+        alert(`Scarpa "${scarpa.nome}" (Taglia: ${selectedSizeInfo.size}) aggiunta al carrello!`);
+    };
+
+    if (!scarpe) return <div>Caricamento...</div>;
 
     return (
         <Container style={{minHeight:'62vh'}}>
             <Row className="d-flex justify-content-center align-items-center mt-5 mb-5">
                 <Col xs={12} md={12} lg={6} className="mt-5">
-                    <img src={scarpa.immagine} className="img-card-details" alt={scarpa.nome} />
+                    <img src={scarpe.immagine} className="img-card-details" alt={scarpe.nome} />
                 </Col>
                 <Col xs={12} md={12} lg={6} className="mt-5">
-                    <h1 className="fw-bold fs-1">{scarpa.nome}</h1>
-                    <h1 className="mt-3 fs-5">{scarpa.prezzo} €</h1>
+                    <h1 className="fw-bold fs-1">{scarpe.nome}</h1>
+                    <h1 className="mt-3 fs-5">{scarpe.prezzo} €</h1>
                     <hr />
-                    <h1 className="mt-3 fs-5 mb-5 mt-5" style={{lineHeight: '35px'}}>{scarpa.descrizione}</h1>
+                    <h1 className="mt-3 fs-5 mb-5 mt-5" style={{lineHeight: '35px'}}>{scarpe.descrizione}</h1>
                     <select 
-  id={`size-select-${scarpa.id}`}
-  value={selectedSizes[scarpa.id] || ''}
-  onChange={(e) => handleSizeChange(scarpa.id, e.target.value)}
-  className="form-select"
->
-  <option value="">Taglia</option>
-  {scarpa.taglie.map((size) => (
-    <option key={size.id} value={size.taglia}>
-      {size.taglia} - {size.quantità} disponibili
-    </option>
-  ))}
-</select>
-            
+                        id={`size-select-${scarpe.id}`}
+                        value={selectedSizes[scarpe.id]?.size || ''}  // Usa solo la taglia selezionata
+                        onChange={(e) => handleSizeChange(scarpe.id, e.target.value)}
+                        className="form-select"
+                    >
+                        <option value="">Taglia</option>
+                        {scarpe.taglie.map((size) => (
+                            <option key={size.id} value={size.taglia}>
+                                {size.taglia} - {size.quantità} disponibili
+                            </option>
+                        ))}
+                    </select>
                     
                     <button 
                         className="btn-carrello-card-details mt-3 mb-3" 
-                        onClick={() => handleAddToCart(scarpa)}
-                        >
+                        onClick={() => handleAddToCart(scarpe)}
+                    >
                         Aggiungi al carrello 
-                    </button> <hr></hr>       
-<h1 className="mt-4 fs-5"> <i className="bi bi-check-circle-fill text-success" style={{ fontSize: '24px' }}></i> Ritiro disponibile in tutti i nostri store</h1>
-<h1 className="mt-2 fs-5"> <i className="bi bi-car-front me-2"></i>Spedizione <span style={{ fontWeight:"bold", color: '#198754'}}> GRATUITA </span> entro 24/48h in tutta Italia.</h1>
-<h1 className="mt-2 fs-5"> <i className="bi bi-cash-stack text-success" style={{ fontSize: '24px' }}></i> Reso o rimborso per qualsiasi tipo di sneakers</h1> 
-                 
+                    </button> 
+                    <hr />
+                    <h1 className="mt-4 fs-5">
+                        <i className="bi bi-check-circle-fill text-success" style={{ fontSize: '24px' }}></i> 
+                        Ritiro disponibile in tutti i nostri store
+                    </h1>
+                    <h1 className="mt-2 fs-5">
+                        <i className="bi bi-car-front me-2"></i>Spedizione 
+                        <span style={{ fontWeight:"bold", color: '#198754'}}> GRATUITA </span> 
+                        entro 24/48h in tutta Italia.
+                    </h1>
+                    <h1 className="mt-2 fs-5">
+                        <i className="bi bi-cash-stack text-success" style={{ fontSize: '24px' }}></i> 
+                        Reso o rimborso per qualsiasi tipo di sneakers
+                    </h1>
                 </Col>
             </Row>
         </Container>

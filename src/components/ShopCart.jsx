@@ -56,6 +56,7 @@ const ShopCart = () => {
                                 <th>Immagine</th>
                                 <th>Sneakers</th>
                                 <th>Prezzo</th>
+                                <th>Taglia</th>
                                 <th>Quantità</th>
                             </tr>
                         </thead>
@@ -65,9 +66,10 @@ const ShopCart = () => {
                                     <td>
                                         <img src={item.img} style={{ height: '50px' }} alt={item.title} />
                                     </td>
-                                    <td className="fw-bold">{item.title}  {item.size}  </td>
-                                   
+                                    <td className="fw-bold">{item.title}   </td>
+                                    
                                     <td className="fw-bold">{item.price} €</td> 
+                                    <td className="fw-bold"> {item.size}  </td>
                                     <td>
                                         <button className="btn-shop me-2"
                                             onClick={() => updateItemQuantity(item.id, item.quantity - 1)} 
