@@ -60,7 +60,7 @@ const GestioneAdmin = () => {
             [name]: value,
         }));
     };
-
+// da rivedere importazione di immagini (file)
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
