@@ -43,7 +43,7 @@ const ShopCart = () => {
         console.error('Errore durante la transazione ', err);
         alert('Si è verificato un errore durante la transazione.');
     };
-
+console.log(items)
     const clienteId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
     return (
         <section className="py-4 container">
