@@ -14,32 +14,36 @@ const GestioneAdmin = () => {
         nome: '',
         marca: '',
         prezzo: '',
+        descrizione: '',
         immagine: '',
         taglie: [],
     });
-    const [taglia, setTaglia] = useState({ taglia: '', quantita: '' });
-    
-    //Visualizza tutte le sneakers --GET--
+    const [taglia, setTaglia] = useState({ taglia: '', quantità: '' });
+
+    // Visualizza tutte le sneakers --GET--
     useEffect(() => {
-        fetch(`http://localhost:3002/scarpa/view/all`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
+        const fetchSneakers = async () => {
+            try {
+                const response = await fetch(`http://localhost:3002/scarpa/view/all`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error(`Errore: ${response.status}`);
+                }
+                const data = await response.json();
+                setScarpe(data.content || []);
+            } catch (error) {
+                console.error("Errore nel caricamento dei dati:", error);
             }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Errore: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            setScarpe(data.content || []);
-        })
-        .catch(error => console.error("Errore nel caricamento dei dati:", error));
+        };
+        fetchSneakers();
     }, []);
 
     const handleShowModal = () => setShowModal(true);
+
     const handleCloseModal = () => {
         setShowModal(false);
         resetForm();
@@ -47,56 +51,68 @@ const GestioneAdmin = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setNewSneaker((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setNewSneaker(prev => ({ ...prev, [name]: value }));
     };
 
     const handleTagliaChange = (e) => {
         const { name, value } = e.target;
-        setTaglia((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setTaglia(prev => ({ ...prev, [name]: value }));
     };
-// da rivedere importazione di immagini (file)
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setNewSneaker((prev) => ({
-                    ...prev,
-                    immagine: reader.result,
-                }));
-            };
-            reader.readAsDataURL(file);
+        if (file && selectedSneaker) {
+            const formData = new FormData();
+            formData.append('immagine', file);
+
+            fetch(`http://localhost:3002/scarpa/${selectedSneaker.id}/immagine`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Errore durante il caricamento dell'immagine: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Immagine caricata con successo!');
+                setScarpe(prevScarpe => prevScarpe.map(scarpa =>
+                    scarpa.id === selectedSneaker.id ? { ...scarpa, immagine: data.immagine } : scarpa
+                ));
+            })
+            .catch(error => {
+                console.error("Errore durante il caricamento dell'immagine:", error);
+                alert('Errore durante il caricamento dell\'immagine.');
+            });
         }
     };
 
-    const PostTaglia = () => {
-        if (taglia.taglia && taglia.quantita) {
+    const postTaglia = () => {
+        if (taglia.taglia && taglia.quantità) {
             const tagliaNumerica = parseInt(taglia.taglia);
-            const quantitaNumerica = parseInt(taglia.quantita);
+            const quantitaNumerica = parseInt(taglia.quantità);
 
             const existingTaglia = newSneaker.taglie.find(t => t.taglia === tagliaNumerica);
             if (existingTaglia) {
                 existingTaglia.quantità = quantitaNumerica;
             } else {
-                setNewSneaker((prev) => ({
+                setNewSneaker(prev => ({
                     ...prev,
                     taglie: [...prev.taglie, { taglia: tagliaNumerica, quantità: quantitaNumerica }],
                 }));
             }
-            setTaglia({ taglia: '', quantita: '' });
+            setTaglia({ taglia: '', quantità: '' });
         } else {
-            alert('Specifica taglia e quantità'); 
+            alert('Specifica taglia e quantità');
         }
     };
 
-    //Creazione sneakers  --POST--
-    const PostSneaker = () => {
+    // Creazione sneakers  --POST--
+    const postSneaker = () => {
         fetch('http://localhost:3002/scarpa/creazione', {
             method: 'POST',
             headers: {
@@ -113,17 +129,17 @@ const GestioneAdmin = () => {
         })
         .then(data => {
             setScarpe(prev => [...prev, data]);
-            alert('Sneaker aggiunta!!!!!!!!!'); 
+            alert('Sneaker aggiunta con successo!');
             handleCloseModal();
         })
         .catch(error => {
             console.error("Errore aggiunta della sneaker:", error);
-            alert('Errore aggiunta della sneaker.'); 
+            alert('Errore aggiunta della sneaker.');
         });
     };
 
-    //Modifica sneakers  --PUT--
-    const PutSneaker = () => {
+    // Modifica sneakers  --PUT--
+    const putSneaker = () => {
         fetch(`http://localhost:3002/scarpa/put/${selectedSneaker.id}`, {
             method: 'PUT',
             headers: {
@@ -140,18 +156,18 @@ const GestioneAdmin = () => {
         })
         .then(data => {
             setScarpe(prev => prev.map(scarpa => (scarpa.id === selectedSneaker.id ? data : scarpa)));
-            alert('Sneaker aggiornata!!!!!!'); 
+            alert('Sneaker aggiornata con successo!');
             handleCloseModal();
         })
         .catch(error => {
             console.error("Errore aggiornamento della sneaker:", error);
-            alert('Errore aggiornamento della sneaker.'); 
+            alert('Errore aggiornamento della sneaker.');
         });
     };
 
-    //Rimuovi sneakers  --DELETE--
-    const DeleteSneaker = (id) => {
-        if (window.confirm('Sei SICURISSIMO di voler eliminare questa sneaker?')) {
+    // Rimuovi sneakers  --DELETE--
+    const deleteSneaker = (id) => {
+        if (window.confirm('Sei sicuro di voler eliminare questa sneaker?')) {
             fetch(`http://localhost:3002/scarpa/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -163,16 +179,16 @@ const GestioneAdmin = () => {
                     throw new Error(`Errore: ${response.status}`);
                 }
                 setScarpe(prevScarpe => prevScarpe.filter(scarpa => scarpa.id !== id));
-                alert('Sneaker eliminata con successo!'); 
+                alert('Sneaker eliminata con successo!');
             })
             .catch(error => {
                 console.error("Errore eliminazione della sneaker:", error);
-                alert('Errore eliminazione della sneaker.'); 
+                alert('Errore eliminazione della sneaker.');
             });
         }
     };
 
-    const EditSneaker = (scarpa) => {
+    const editSneaker = (scarpa) => {
         setSelectedSneaker(scarpa);
         setNewSneaker(scarpa);
         setEditMode(true);
@@ -184,10 +200,11 @@ const GestioneAdmin = () => {
             nome: '',
             marca: '',
             prezzo: '',
+            descrizione: '',
             immagine: '',
             taglie: [],
         });
-        setTaglia({ taglia: '', quantita: '' });
+        setTaglia({ taglia: '', quantità: '' });
         setEditMode(false);
         setSelectedSneaker(null);
     };
@@ -217,13 +234,13 @@ const GestioneAdmin = () => {
                                 <div className="d-flex justify-content-between mt-3">
                                     <button 
                                         className="button-gestione matita ms-3"
-                                        onClick={() => EditSneaker(scarpa)} 
+                                        onClick={() => editSneaker(scarpa)} 
                                     >
                                         <i className="bi bi-pencil" style={{ fontSize: '22px'}}></i> 
                                     </button> 
                                     <button 
                                         className="button-gestione secchio me-3"
-                                        onClick={() => DeleteSneaker(scarpa.id)} 
+                                        onClick={() => deleteSneaker(scarpa.id)} 
                                     >
                                         <i className="bi bi-trash" style={{ fontSize: '22px'}}></i> 
                                     </button> 
@@ -242,67 +259,92 @@ const GestioneAdmin = () => {
                     <Form>
                         <Form.Group controlId="formNome">
                             <Form.Label>Nome</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="nome"
-                                value={newSneaker.nome}
-                                onChange={handleInputChange}
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Nome della sneaker"
+                                name="nome" 
+                                value={newSneaker.nome} 
+                                onChange={handleInputChange} 
                             />
                         </Form.Group>
+
                         <Form.Group controlId="formMarca">
                             <Form.Label>Marca</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="marca"
-                                value={newSneaker.marca}
-                                onChange={handleInputChange}
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Marca della sneaker" 
+                                name="marca" 
+                                value={newSneaker.marca} 
+                                onChange={handleInputChange} 
                             />
                         </Form.Group>
+
                         <Form.Group controlId="formPrezzo">
                             <Form.Label>Prezzo</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="prezzo"
-                                value={newSneaker.prezzo}
-                                onChange={handleInputChange}
+                            <Form.Control 
+                                type="number" 
+                                placeholder="Prezzo" 
+                                name="prezzo" 
+                                value={newSneaker.prezzo} 
+                                onChange={handleInputChange} 
                             />
                         </Form.Group>
+
+                        <Form.Group controlId="formDescrizione">
+                            <Form.Label>Descrizione</Form.Label>
+                            <Form.Control 
+                                as="textarea" 
+                                rows={3} 
+                                placeholder="Descrizione" 
+                                name="descrizione" 
+                                value={newSneaker.descrizione} 
+                                onChange={handleInputChange} 
+                            />
+                        </Form.Group>
+
                         <Form.Group controlId="formImmagine">
                             <Form.Label>Immagine</Form.Label>
-                            <Form.Control
-                                type="file"
-                                onChange={handleImageChange}
+                            <Form.Control 
+                                type="file" 
+                                accept="image/*" 
+                                onChange={handleImageChange} 
                             />
                         </Form.Group>
+
                         <Form.Group controlId="formTaglia">
                             <Form.Label>Taglia</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="taglia"
-                                value={taglia.taglia}
-                                onChange={handleTagliaChange}
+                            <Form.Control 
+                                type="number" 
+                                placeholder="Taglia" 
+                                name="taglia" 
+                                value={taglia.taglia} 
+                                onChange={handleTagliaChange} 
                             />
                         </Form.Group>
-                        <Form.Group controlId="formQuantita">
+
+                        <Form.Group controlId="formQuantità">
                             <Form.Label>Quantità</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="quantita"
-                                value={taglia.quantita}
-                                onChange={handleTagliaChange}
+                            <Form.Control 
+                                type="number" 
+                                placeholder="Quantità" 
+                                name="quantità" 
+                                value={taglia.quantità} 
+                                onChange={handleTagliaChange} 
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={PostTaglia}>
+
+                        <Button variant="primary" onClick={postTaglia} className="mt-2">
                             Aggiungi Taglia
                         </Button>
+
+                        {newSneaker.taglie.length > 0 && (
+                            <ul className="mt-3">
+                                {newSneaker.taglie.map((t, index) => (
+                                    <li key={index}>{`Taglia: ${t.taglia}, Quantità: ${t.quantità}`}</li>
+                                ))}
+                            </ul>
+                        )}
                     </Form>
-                    <div className="mt-3">
-                        {newSneaker.taglie.map((t, index) => (
-                            <div key={index}>
-                                <p>Taglia: {t.taglia}, Quantità: {t.quantità}</p>
-                            </div>
-                        ))}
-                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
@@ -310,9 +352,9 @@ const GestioneAdmin = () => {
                     </Button>
                     <Button 
                         variant="primary" 
-                        onClick={editMode ? PutSneaker : PostSneaker}
+                        onClick={editMode ? putSneaker : postSneaker}
                     >
-                        {editMode ? 'Aggiorna' : 'Aggiungi'}
+                        {editMode ? 'Salva Modifiche' : 'Aggiungi Sneaker'}
                     </Button>
                 </Modal.Footer>
             </Modal>
