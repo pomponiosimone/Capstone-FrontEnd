@@ -71,11 +71,6 @@ const LoginAdmin = () => {  console.log('Componente LoginAdmin caricato')
             <i className="bx bxs-lock-alt"></i>
           </div>
 
-          <div className="remember-forgot">
-            <label>
-              <input type="checkbox" /> Remember me
-            </label>
-          </div>
 
           <button type="submit" className="btn">Login</button>
         </form>

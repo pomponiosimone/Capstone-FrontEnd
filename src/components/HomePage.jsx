@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import fotohome from '../assets/fotohome.jpg';
-import Card from "./Card"; // Make sure to import CardShoes
+import Card from "./Card"; 
 import '../css/HomePage.css';
 import "react-multi-carousel/lib/styles.css";
 
@@ -16,7 +16,7 @@ function HomePage() {
                             Scoprire
                         </a>
                     </div>
-                    <img 
+                    <img className="fotohome"
                         src={fotohome} 
                         alt="Descrizione dell'immagine" 
                         style={{ 
@@ -27,13 +27,13 @@ function HomePage() {
                     />
                 </Col>
                 <p id="Alte" className="fs-3 mt-5">Nuovi Arrivi</p>
-                <Card descrizione="sneaker" /> {/* Call with the description for new arrivals */}
+                <Card descrizione="2024" />
                 
-                <p id="Travis" className="fs-3 mt-5">Più acquistate</p>
-                <Card descrizione="Travis" /> {/* Call with the description for best sellers */}
+                <p id="Travis" className="fs-3 mt-5">Travis Scott</p>
+                <Card descrizione="Travis" /> 
                 
                 <p id="back-to-school" className="fs-3 mt-5">Back to School</p> 
-                <Card descrizione="Back" /> {/* Call with the description for back-to-school */}
+                <Card descrizione="Back" /> 
             </Row>
         </Container>
     );

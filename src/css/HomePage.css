@@ -18,7 +18,7 @@
 }
 @media (max-width: 768px) {
     .Bottone{ width: 200px;
-        top: 10%;
+        top: 90px;
        height:120px
     }
     .test-school{
@@ -27,9 +27,9 @@
 }
 @media (max-width: 500px) {
     .Bottone{ width: 120px;
-        top:10px;
+        top:100px;
        height:80px;
-       right:10px;
+       right:30px;
        
        
     }
@@ -49,3 +49,9 @@
     }
 }
 }
+@media (max-width: 700px) {
+.fotohome {
+    height:250px !important ;
+  object-fit: cover;
+
+}}
