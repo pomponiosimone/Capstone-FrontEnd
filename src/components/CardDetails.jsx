@@ -8,19 +8,24 @@ const CardDetails = () => {
     const { id } = useParams(); 
     const [scarpe, setScarpa] = useState(null);
     const [selectedSizes, setSelectedSizes] = useState({});
-    const { addItem, updateItemQuantity, items } = useCart(); 
+    const { addItem } = useCart(); 
     
     useEffect(() => {
-        fetch('http://localhost:3002/scarpa/view/all', {
+       
+        fetch(`http://localhost:3002/scarpa/view/details/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json' 
             }
         })
-        .then(response => response.json())
-        .then(data => {  
-            const foundShoe = data.content.find(item => item.id === id);
-            setScarpa(foundShoe);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Errore: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            setScarpa(data);
         })
         .catch(error => console.error("Errore nel caricamento dei dati:", error));
     }, [id]);
@@ -78,7 +83,7 @@ const CardDetails = () => {
                     <h1 className="mt-3 fs-5 mb-5 mt-5" style={{lineHeight: '35px'}}>{scarpe.descrizione}</h1>
                     <select 
                         id={`size-select-${scarpe.id}`}
-                        value={selectedSizes[scarpe.id]?.size || ''}  // Usa solo la taglia selezionata
+                        value={selectedSizes[scarpe.id]?.size || ''}  
                         onChange={(e) => handleSizeChange(scarpe.id, e.target.value)}
                         className="form-select"
                     >

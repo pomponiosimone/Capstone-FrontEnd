@@ -26,22 +26,19 @@ const responsive = {
     }
 };
 
-const CardShoes = () => {
+const CardShoes = ({ descrizione }) => {
     const [scarpe, setScarpe] = useState([]);
     const [selectedSizes, setSelectedSizes] = useState({});
     const { addItem } = useCart();
 
     useEffect(() => {
-        fetch('http://localhost:3002/scarpa/view/all', {
+        
+        fetch(`http://localhost:3002/scarpa/view/filtro?descrizione=${descrizione}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`Errore: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`Errore: ${response.status}`);
             return response.json();
         })
         .then(data => {
@@ -49,7 +46,7 @@ const CardShoes = () => {
             setScarpe(data.content || []);
         })
         .catch(error => console.error("Errore nel caricamento dei dati:", error));
-    }, []);
+    }, [descrizione]); 
 
     const handleSizeChange = (scarpaId, size) => {
         const selectedSize = scarpe.find(scarpa => scarpa.id === scarpaId)
@@ -77,7 +74,7 @@ const CardShoes = () => {
         }
 
         const item = {
-            id: `${scarpa.id}_${selectedSizeInfo.size}`,  
+            id: `${scarpa.id}_${selectedSizeInfo.size}`,
             title: scarpa.nome,
             price: scarpa.prezzo,
             img: scarpa.immagine,
@@ -86,7 +83,7 @@ const CardShoes = () => {
             quantity: 1
         };
 
-        addItem(item); 
+        addItem(item);
         alert(`Scarpa "${scarpa.nome}" (Taglia: ${selectedSizeInfo.size}) aggiunta al carrello!`);
     };
 
@@ -94,7 +91,7 @@ const CardShoes = () => {
         <Carousel responsive={responsive}>
             {scarpe.map((scarpa) => (
                 <Col key={scarpa.id} style={{ marginTop: '10px', marginLeft: "10px", marginRight: "30px", marginBottom: '10px' }}>
-                    <Card style={{ width: '100%' }} className="border-0 shadow"> 
+                    <Card style={{ width: '100%' }} className="border-0 shadow">
                         <Link to={`/card-details/${scarpa.id}`}>
                             <Card.Img
                                 variant="top"
