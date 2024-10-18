@@ -18,23 +18,53 @@
     text-align: center;
 }
 .btn-carrello-card{
-    border-radius: 50%;
+    width: 45px;
+    border-radius: 35%;
     padding:10px;
     background-color: whitesmoke;
-    border: 0.5px black solid;
-    cursor: pointer; 
-    transition: all 0.5s; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 
-                0 2px 4px rgba(0, 0, 0, 0.5); 
-    transform: translateY(0); 
-}
-    .btn-carrello-card.hover {
-        background-color: green;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9), 
-                    0 4px 8px rgba(0, 0, 0, 0.9); 
-     
-        transform: translateY(-5px); 
-    }
+    touch-action: manipulation;
+    border: 0px solid black;
+   align-items: center;
+    box-shadow: rgba(0, 0, 0, .12) 0 1px 3px, rgba(0, 0, 0, .14) 0 1px .5px, rgba(182, 229, 255, .4) 0 1px .5px inset, rgba(0, 0, 0, 0.46) 0 -1px .5px inset, #000000 0 0 0 .5px inset;
+    color: black;
+    outline: 3px #fff;
+    outline-offset: 0;
+    
+   
+    font-size: 20px;
+    line-height: 100%;
+  
+   
+    transition-property: outline-offset, border-color, transform;
+    transition-duration: .2s;
+  }
+  .btn-carrello-card:active,.btn-carrello-card :hover {
+    outline: 0;
+  }
+  
+  .btn-carrello-card:hover {
+    background-color: #e5e5e5;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e5e5e5), color-stop(50%, #d1d1d1), color-stop(50%, #c4c4c4), color-stop(100%, #b8b8b8));
+    background-image: -webkit-linear-gradient(top, #e5e5e5 0%, #d1d1d1 50%, #c4c4c4 50%, #b8b8b8 100%);
+    background-image: -moz-linear-gradient(top, #e5e5e5 0%, #d1d1d1 50%, #c4c4c4 50%, #b8b8b8 100%);
+    background-image: -ms-linear-gradient(top, #e5e5e5 0%, #d1d1d1 50%, #c4c4c4 50%, #b8b8b8 100%);
+    background-image: -o-linear-gradient(top, #e5e5e5 0%, #d1d1d1 50%, #c4c4c4 50%, #b8b8b8 100%);
+    background-image: linear-gradient(top, #e5e5e5 0%, #d1d1d1 50%, #c4c4c4 50%, #b8b8b8 100%);
+  
+   
+    transform: scale(1.04);
+  }
+  
+  .btn-carrello-card:active {
+    -webkit-box-shadow: inset 0 0 30px 0 #999999, 0 1px 0 0 rgba(255, 255, 255, .1);
+  -moz-box-shadow: inset 0 0 30px 0 #999999, 0 1px 0 0 rgba(255, 255, 255, .1);
+  box-shadow: inset 0 0 30px 0 #999999, 0 1px 0 0 rgba(255, 255, 255, .1);
+ 
+  
+  
+    transform: scale(.98);
+  }
+   
 
 .form-select {
     width: 100px;

@@ -45,3 +45,11 @@ th{
 .btn-svuota{
     height:55px;
 }
+@media (max-width: 500px){.btn-svuota{
+    height:40px;
+    width:50px;
+}
+.btn-svuota p{
+display: none;
+}
+}
