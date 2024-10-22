@@ -45,11 +45,25 @@ th{
 .btn-svuota{
     height:55px;
 }
-@media (max-width: 500px){.btn-svuota{
+@media (max-width: 500px){.btn-svuota, .icona{
     height:40px;
     width:50px;
+    margin: 0px !important;
 }
+
 .btn-svuota p{
 display: none;
+
 }
 }
+.border1{
+    border-top: 1px grey solid;
+}
+.button-cash{
+    min-width:150px;
+}
+@media (max-width: 500px){
+.modal{
+    max-width: 370px;
+  
+}}

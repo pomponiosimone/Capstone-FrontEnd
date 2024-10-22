@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Modal, Button, Form, } from 'react-bootstrap';
+import { Container, Row, Col, Modal, Button, Form, Pagination } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import '../css/Card.css';
@@ -7,6 +7,7 @@ import '../css/LoginAdmin.css';
 
 const GestioneAdmin = () => {
     const [scarpe, setScarpe] = useState([]);
+    const [totalItems, setTotalItems] = useState(0); 
     const [showModal, setShowModal] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [selectedSneaker, setSelectedSneaker] = useState(null);
@@ -20,27 +21,40 @@ const GestioneAdmin = () => {
     });
     const [taglia, setTaglia] = useState({ taglia: '', quantità: '' });
 
-    // Visualizza tutte le sneakers --GET--
-    useEffect(() => {
-        const fetchSneakers = async () => {
-            try {
-                const response = await fetch(`http://localhost:3002/scarpa/view/all`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error(`Errore: ${response.status}`);
+  
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12; 
+
+    const fetchSneakers = async (page) => {
+        try {
+            const response = await fetch(`http://localhost:3002/scarpa/view/all?page=${page - 1}&size=${itemsPerPage}&sortBy=id`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-                const data = await response.json();
-                setScarpe(data.content || []);
-            } catch (error) {
-                console.error("Errore nel caricamento dei dati:", error);
+            });
+            if (!response.ok) {
+                throw new Error(`Errore: ${response.status}`);
             }
-        };
-        fetchSneakers();
-    }, []);
+            const data = await response.json();
+            setScarpe(data.content || []);
+            setTotalItems(data.totalElements || 0); 
+        } catch (error) {
+            console.error("Errore nel caricamento dei dati:", error);
+        }
+    };
+
+  
+    useEffect(() => {
+        fetchSneakers(currentPage);
+    }, [currentPage]);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const handleShowModal = () => setShowModal(true);
 
@@ -131,6 +145,7 @@ const GestioneAdmin = () => {
             setScarpe(prev => [...prev, data]);
             alert('Sneaker aggiunta con successo!');
             handleCloseModal();
+            fetchSneakers(currentPage); 
         })
         .catch(error => {
             console.error("Errore aggiunta della sneaker:", error);
@@ -158,6 +173,7 @@ const GestioneAdmin = () => {
             setScarpe(prev => prev.map(scarpa => (scarpa.id === selectedSneaker.id ? data : scarpa)));
             alert('Sneaker aggiornata con successo!');
             handleCloseModal();
+            fetchSneakers(currentPage); 
         })
         .catch(error => {
             console.error("Errore aggiornamento della sneaker:", error);
@@ -180,6 +196,7 @@ const GestioneAdmin = () => {
                 }
                 setScarpe(prevScarpe => prevScarpe.filter(scarpa => scarpa.id !== id));
                 alert('Sneaker eliminata con successo!');
+                fetchSneakers(currentPage); 
             })
             .catch(error => {
                 console.error("Errore eliminazione della sneaker:", error);
@@ -213,12 +230,15 @@ const GestioneAdmin = () => {
         <Container fluid>
             <Row className="pe-5 ps-5 mt-5">
                 <Col xs={12} className="mt-5"> 
-                    <p className="fw-5 ms-2">Aggiungi sneakers 
-                        <i style={{ fontSize: '22px' }} className="bi bi-arrow-down-circle ms-3" onClick={handleShowModal}></i>
+                <p className="fw-5 ms-2">Aggiungi sneakers 
+                <i class="bi bi-arrow-down-square-fill ms-3" style={{ fontSize: '22px', color: 'green'}} onClick={handleShowModal}></i>
                     </p>
                 </Col>
+            </Row>
+
+            <Row className="justify-content-center">
                 {scarpe.map((scarpa) => (
-                    <Col key={scarpa.id} xs={12} sm={6} md={4} lg={3} className="mb-5 mt-5">
+                    <Col md={4} key={scarpa.id} className="mb-4 mt-5">
                         <Card style={{ width: '100%' }} className="border-0 shadow"> 
                             <Link to={`/card-details/${scarpa.id}`}>
                                 <Card.Img
@@ -251,13 +271,33 @@ const GestioneAdmin = () => {
                 ))}
             </Row>
 
+            <Pagination className="justify-content-center mb-4">
+                <Pagination.Prev 
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} 
+                    disabled={currentPage === 1}
+                />
+                {[...Array(totalPages)].map((_, index) => (
+                    <Pagination.Item 
+                        key={index + 1} 
+                        active={index + 1 === currentPage} 
+                        onClick={() => handlePageChange(index + 1)}
+                    >
+                        {index + 1}
+                    </Pagination.Item>
+                ))}
+                <Pagination.Next 
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} 
+                    disabled={currentPage === totalPages}
+                />
+            </Pagination>
+
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>{editMode ? 'Modifica Sneaker' : 'Aggiungi Sneaker'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="formNome">
+                        <Form.Group className="mt-1" controlId="formNome">
                             <Form.Label>Nome</Form.Label>
                             <Form.Control 
                                 type="text" 
@@ -268,7 +308,7 @@ const GestioneAdmin = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formMarca">
+                        <Form.Group className="mt-2" controlId="formMarca">
                             <Form.Label>Marca</Form.Label>
                             <Form.Control 
                                 type="text" 
@@ -279,7 +319,7 @@ const GestioneAdmin = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formPrezzo">
+                        <Form.Group  className="mt-2" controlId="formPrezzo">
                             <Form.Label>Prezzo</Form.Label>
                             <Form.Control 
                                 type="number" 
@@ -290,7 +330,7 @@ const GestioneAdmin = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formDescrizione">
+                        <Form.Group  className="mt-2" controlId="formDescrizione">
                             <Form.Label>Descrizione</Form.Label>
                             <Form.Control 
                                 as="textarea" 
@@ -303,7 +343,7 @@ const GestioneAdmin = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formImmagine">
-                            <Form.Label>Immagine</Form.Label>
+                            <Form.Label  className="mt-2" >Immagine</Form.Label>
                             <Form.Control 
                                 type="file" 
                                 accept="image/*" 
@@ -311,7 +351,7 @@ const GestioneAdmin = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formTaglia">
+                        <Form.Group  className="mt-2" controlId="formTaglia">
                             <Form.Label>Taglia</Form.Label>
                             <Form.Control 
                                 type="number" 
@@ -322,7 +362,7 @@ const GestioneAdmin = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formQuantità">
+                        <Form.Group  className="mt-2" controlId="formQuantità">
                             <Form.Label>Quantità</Form.Label>
                             <Form.Control 
                                 type="number" 
