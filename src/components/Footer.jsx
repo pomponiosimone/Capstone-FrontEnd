@@ -15,18 +15,18 @@ function Footer() {
                             rounded
                             width={140}
                             height={140}
-                        />     <NavLink href="/loginAdmin">Area Riservata</NavLink> </div>
+                        />     <NavLink className="mb-2" href="/loginAdmin">Area Riservata</NavLink> </div>
                     </Col> 
 
                     <Col xs={8} md={4} lg={3} className="mb-5">
                         <Nav className="flex-column fs-5">
                             <p className="titoli-footer mb-3">
-                                <i id="store" className="bi bi-bank me-2"></i> Dove sono i nostri store?
+                                <i id="store" className="bi bi-bank me-2"></i> Dove è il nostro store?
                             </p>
-                            <NavLink href="#" className="a text-white">Roma, Via delle Vigne Nuove, 45</NavLink>
-                            <NavLink href="#" className="a text-white">Milano, Via Ostiense, 30</NavLink>
-                            <NavLink href="#" className="a text-white">Torino, Corso Vittorio Emanuele II, 50</NavLink>
-                            <NavLink href="#" className="a text-white">Napoli, Via Toledo, 80</NavLink>
+                            <NavLink href="#" className="a text-white">Via delle Vigne Nuove, 45</NavLink>
+                            <NavLink href="#" className="a text-white"> CAP - 00132</NavLink>
+                            <NavLink href="#" className="a text-white">Roma (RM) - zona Tiburtina</NavLink>
+                            
                         </Nav>
                     </Col>
 

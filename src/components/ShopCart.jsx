@@ -30,7 +30,7 @@ const ShopCart = () => {
     const [errorMessage, setErrorMessage] = useState(''); 
     const [paymentMethod, setPaymentMethod] = useState('');
     const [address, setAddress] = useState(''); 
-    const [shippingCost, setShippingCost] = useState(5.00); 
+    const [shippingCost, setShippingCost] = useState(0.00); 
     const [shippingType, setShippingType] = useState('DOMICILIO'); 
     const [orderTotal, setOrderTotal] = useState(cartTotal + shippingCost);
     const [clienteId, setClienteId] = useState(null);

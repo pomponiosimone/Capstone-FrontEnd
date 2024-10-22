@@ -42,11 +42,11 @@ const CardShoes = ({ descrizione }) => {
             return response.json();
         })
         .then(data => {
-            console.log('Dati ricevuti:', data.content);
+            
             setScarpe(data.content || []);
         })
         .catch(error => console.error("Errore nel caricamento dei dati:", error));
-    }, [descrizione]); 
+    }, [descrizione]);
 
     const handleSizeChange = (scarpaId, size) => {
         const selectedSize = scarpe.find(scarpa => scarpa.id === scarpaId)
