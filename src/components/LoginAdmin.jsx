@@ -9,7 +9,7 @@ const LoginAdmin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('handleSubmit chiamato'); 
+   
 
     const payload = {
       email: email,
