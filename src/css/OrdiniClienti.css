@@ -1,0 +1,144 @@
+.ordini-clienti{
+    position: absolute;
+    
+    align-items: center;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    top:60px;
+    right:0px;
+    left:0px;
+    bottom:0px;
+    z-index:10000;
+    height: 100vh;
+}
+.ordini-titolo{
+margin-top: 70px;
+}
+
+.formDash{
+    width: 25%;
+}
+
+.h1Dash{
+    font-size: 8vh;
+    color: #ffc999;
+}
+
+.searchDash{
+    width: 25vh;
+    margin-left: 8vh;
+}
+
+.dataDash{
+    width: 25vh;
+    margin-right: 8vh;
+}
+
+.formDataDash{
+    display: flex !important;
+    justify-content: center;
+}
+
+.intDash{
+    font-weight: bolder;
+}
+
+
+
+
+@media(max-width:1137px){
+
+    .searchDash{
+        width: 25vh;
+        margin-left: 2vh;
+        margin-right: 3vh;
+    }
+
+    .dataDash{
+        width: 25vh;
+        margin-right: 2vh;
+        margin-left: 1.5vh;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .tableOrrizonta {
+      display: none;
+    }
+  }
+
+@media screen and (min-width:769px){
+    .tableVertical{
+        display: none !important;
+    }
+}
+
+
+@media(max-width:374px){
+    .formDataDash{
+        margin-left: 5vh;
+        margin-right: vh;
+        width: 50vh ;
+    }
+    
+
+    .h1Dash{
+        font-size: 6vh;
+    }
+
+    .contDash{
+        margin-top: 10vh;
+        width: 102vh;
+    }
+
+    .formDataDash{
+        width: 100vh;
+    }
+    .tableVertical{
+        width: 102vh;
+    }}
+
+    @media(max-width:992px)
+    {
+        .ordini-clienti{
+    width:110vh;
+height: 130vh ;
+}
+}
+@media(max-width:768px)
+{
+    .ordini-clienti{
+width:95vh ;
+height: 140vh ;
+}
+}
+@media(max-width:652px){
+    .h1Dash{
+        font-size: 6vh;
+    }
+}
+
+.tableVertical{
+    width: 100vh;
+    display: flex;
+    justify-content: center;
+}
+@media(max-width:1200px) and (min-width:1096px){
+    .tableVertical{
+        width: 120vh;
+        display: flex;
+        justify-content: center;
+    }}
+    @media(max-width:1096px) and (min-width:775px){
+        .tableVertical{
+            width: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+}
+.contDash {
+    width: 102vh;
+}
+

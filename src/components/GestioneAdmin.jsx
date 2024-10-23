@@ -100,7 +100,7 @@ const GestioneAdmin = () => {
             })
             .catch(error => {
                 console.error("Errore durante il caricamento dell'immagine:", error);
-                alert('Errore durante il caricamento dell\'immagine.');
+               
             });
         }
     };
@@ -177,7 +177,7 @@ const GestioneAdmin = () => {
         })
         .catch(error => {
             console.error("Errore aggiornamento della sneaker:", error);
-            alert('Errore aggiornamento della sneaker.');
+           
         });
     };
 

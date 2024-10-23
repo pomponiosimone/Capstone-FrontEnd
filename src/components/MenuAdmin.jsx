@@ -19,7 +19,9 @@ const MenuAdmin = () => {
                     <Card style={{ width: '100%' }} className="border-0 shadow me-3"> 
                         <Card.Body>
                             <Card.Subtitle className="text-center mt-3">
+                            <Link to="/ordini-clienti">
                                 <button className="button-admin me-4">Lista ordini</button>
+                                </Link>
                             </Card.Subtitle>
                             <Card.Title className="text-center mt-3">
                                 Qui puoi vedere la lista ordini di qualsiasi cliente

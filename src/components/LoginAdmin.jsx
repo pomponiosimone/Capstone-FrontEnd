@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/LoginAdmin.css';
 
-const LoginAdmin = () => {  console.log('Componente LoginAdmin caricato')
+const LoginAdmin = () => {  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();

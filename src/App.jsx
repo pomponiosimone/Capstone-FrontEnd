@@ -16,6 +16,7 @@ import MenuAdmin from './components/MenuAdmin'
 import GestioneAdmin from './components/GestioneAdmin';
 import PrivateAdmin from './components/PrivateAdmin'; 
 import ShoeSearch from './components/ShoeSearch';
+import OrdiniClienti from './components/OrdiniClienti';
 function App() {
   useEffect(() => {
     localStorage.removeItem('accessToken'); 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/menuAdmin" element={<PrivateAdmin><MenuAdmin/></PrivateAdmin>}/>
           <Route path="/gestione-admin" element={<PrivateAdmin><GestioneAdmin/></PrivateAdmin>}/>
           <Route path="/search/:nome" element={<ShoeSearch/>}/>
+          <Route path="/ordini-clienti" element={<PrivateAdmin><OrdiniClienti/></PrivateAdmin>}/>
         </Routes>
         <Footer />
       </BrowserRouter>
