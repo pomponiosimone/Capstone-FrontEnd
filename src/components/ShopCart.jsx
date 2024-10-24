@@ -34,6 +34,7 @@ const ShopCart = () => {
     const [shippingType, setShippingType] = useState('DOMICILIO'); 
     const [orderTotal, setOrderTotal] = useState(cartTotal + shippingCost);
     const [clienteId, setClienteId] = useState(null);
+    const [nomeCliente, setNomeCliente] = useState(null)
     const clientePayPalId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
 
     useEffect(() => {
@@ -66,9 +67,11 @@ const ShopCart = () => {
 
             if (response.ok) {
                 const data = await response.json();
+             
                 alert('Registrazione avvenuta con successo!');
                 setIsAuthenticated(true);
                 setClienteId(data.id);
+                setNomeCliente(data.nome)
                 setAddress(data.indirizzoCompleto); 
                 setShowModal(false);
             } else {
@@ -95,9 +98,10 @@ const ShopCart = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                console.log(data.nome)
                 alert('Login avvenuto con successo!');
                 setIsAuthenticated(true);
+                setNomeCliente(data.nome)
                 setClienteId(data.id);
                 setAddress(data.indirizzoCompleto); 
                 setShowModal(false);
@@ -133,8 +137,8 @@ const ShopCart = () => {
     
     const handleOrderSubmission = async () => { 
         if (!clienteId) {
-            alert("L'ID del cliente non è valido.");
-
+            alert("accedi o registrati prima di acquistare");
+            setShowModal(true)
             return;
         } 
         const ordine = {
@@ -152,7 +156,7 @@ const ShopCart = () => {
             speseSpedizione: shippingCost,
             tipoSpedizione: shippingType,
             totaleOrdine: orderTotal,
-             statoOrdine: "ATTESA"
+            statoOrdine: "ATTESA"
         };
     
         try {
@@ -176,9 +180,10 @@ const ShopCart = () => {
         } catch (error) {
             console.error('Errore durante l\'invio dell\'ordine:', error);
             alert('Errore di connessione durante l\'invio dell\'ordine.');
+            
         }
     }
-
+ 
     if (isEmpty) return (
         <div className="cart-vuoto">
             <img src={CartVuoto} alt="Empty cart" style={{ width: '35vh', height: "25vh", marginTop: '30px' }} />
@@ -187,10 +192,30 @@ const ShopCart = () => {
 
     return (
         <section className="py-4 container">
+             
             <div className="row justify-content-center">
+      
                 <div className="col-12">
-                    <h5>Carrello: ({totalUniqueItems}) Totale articoli: ({totalItems})</h5>
-                    <table className="Table-cart table table-light table-hover mt-5">
+                <div style={{ marginTop: '60px' }}>
+  {clienteId ? (
+    <p className="fs-5 mt-2" >Bentornato {nomeCliente} 🥳!!!</p> 
+  ) : (
+    <>
+      <p className="fs-5 mb-2">Benvenuto </p>
+      <div>
+        <a href="#" onClick={() => { setShowModal(true); setIsLogin(true); }}>
+          Accedi
+        </a>
+        {' o '}
+        <a href="#" onClick={() => { setShowModal(true); setIsLogin(false); }}>
+          Registrati
+       
+        </a>    {' per continuare !!! '}
+      </div>
+    </>
+  )}
+</div>
+                    <table className="Table-cart table table-light table-hover mt-3">
                         <thead>
                             <tr className="th-title text-center">
                                 <th>Immagine</th>
@@ -222,7 +247,7 @@ const ShopCart = () => {
                     <Container fluid>
                         <Row className="d-flex justify-content-center">
                             <Col xs={3} lg={3}>
-                                <h1 className="fs-5 me-5">Totale: € {orderTotal.toFixed(2)}</h1>
+                                <h1 className="fs-5 me-5">Totale: € {orderTotal.toFixed(2)}</h1>  
                             </Col>
                             <Col xs={7} lg={8}>
                                 {isAuthenticated ? (
@@ -243,7 +268,7 @@ const ShopCart = () => {
                                                 />
                                                 <Form.Check  className="mt-2 mb-2"
                                                     type="radio"
-                                                    label="Ritiro"
+                                                    label="Ritiro in negozio"
                                                     name="shippingType"
                                                     value="RITIRO"
                                                     checked={shippingType === 'RITIRO'}
@@ -251,57 +276,56 @@ const ShopCart = () => {
                                                 /> 
                                             </Form.Group> </div>
                                             <div className="border1">
-                                            <h5 className='mb-3 mt-3'>Tipo Pagamento:</h5>
-                                            <div className="d-flex mt-3">
-                                                <Form.Check 
-                                                    type="radio"
-                                                    label="Contanti" 
-                                                    name="paymentMethod"
-                                                    value="cash" 
-                                                    checked={paymentMethod === 'cash'}
-                                                    onChange={() => setPaymentMethod('cash')}
-                                                /> <i class="bi bi-cash ms-2" style={{color:"green"}}></i> 
+                                            <h5 className="fs-6 text-start  mt-2 mb-3">Tipo di pagamento:</h5>
+                                            <Form.Check
+                                                type="radio"
+                                                label="Contanti"
+                                                name="paymentMethod"
+                                                value="cash"
+                                                checked={paymentMethod === 'cash'}
+                                                onChange={() => setPaymentMethod('cash')}
+                                            />
+                                            <Form.Check className="mt-2 mb-2"
+                                                type="radio"
+                                                label="PayPal"
+                                                name="paymentMethod"
+                                                value="paypal"
+                                                checked={paymentMethod === 'paypal'}
+                                                onChange={() => setPaymentMethod('paypal')}
+                                            />
                                             </div>
-                                            <div className="d-flex mt-3">
-                                                <Form.Check 
-                                                    type="radio"
-                                                    label="Carta di credito"
-                                                    name="paymentMethod"
-                                                    value="paypal"
-                                                    checked={paymentMethod === 'paypal'}
-                                                    onChange={() => setPaymentMethod('paypal')}
-                                                /> <i class="bi bi-credit-card ms-2" style={{color:"blue"}} ></i> 
-                                               </div>
-                                            </div>
+                                           
                                         </Form>
-                                         </div>
-                                        {paymentMethod === 'paypal' && (
-                                            <PayPalScriptProvider options={{ "client-id": clientePayPalId }}>
-                                                <PayPalButtons 
-                                                    createOrder={createOrder}
-                                                    onApprove={(data, actions) => {
-                                                        onApprove(data, actions);
-                                                        handleOrderSubmission();
-                                                    }}
-                                                    onError={onError}
-                                                />
-                                            </PayPalScriptProvider>
-                                        )}
-
-                                        {paymentMethod === 'cash' && (
+                                        </div> 
+                                       
+                                        <div className="mt-3">
+                                            {paymentMethod === 'paypal' && (
+                                                <PayPalScriptProvider options={{ "client-id": clientePayPalId }}>
+                                                    <PayPalButtons
+                                                        createOrder={createOrder}
+                                                        onApprove={onApprove}
+                                                        onError={onError}
+                                                    />
+                                                </PayPalScriptProvider>
+                                            )}
+                                             {paymentMethod === 'cash' && (
                                             <Button 
                                                 onClick={() => {
-                                                    alert('Pagamento completato!');
+                                                   
                                                     handleOrderSubmission();
                                                 }} 
                                                 className="btn-paypals mt-3 button-cash"
                                             >
                                                 Completa pagamento
                                             </Button>
-                                        )}
+                                            )}
+                                        </div>
                                     </div>
                                 ) : (
-                                    <Button variant="primary" onClick={() => setShowModal(true)}>Accedi o Registrati</Button>
+                                    <div>
+                                        <a href="#" onClick={() => { setShowModal(true); setIsLogin(true); }}>Accedi</a> / 
+                                        <a href="#" onClick={() => { setShowModal(true); setIsLogin(false); }}>Registrati</a>
+                                    </div>
                                 )}
                             </Col>
                             <Col xs={1} lg={1}>
@@ -313,61 +337,52 @@ const ShopCart = () => {
                     </Container>
                 </div>
             </div>
-
-            <Modal className="modal" show={showModal} onHide={() => setShowModal(false)}>
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{isLogin ? 'Login' : 'Registrazione'}</Modal.Title>
+                    <Modal.Title>{isLogin ? 'Accedi' : 'Registrati'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={isLogin ? handleLogin : handleRegister}>
                         {!isLogin && (
                             <>
-                                <Form.Group className="mb-3">
+                                <Form.Group className="mb-3" controlId="nome">
                                     <Form.Label>Nome</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="nome"
                                         value={formData.nome}
                                         onChange={handleChange}
-                                        required
                                     />
                                 </Form.Group>
-
-                                <Form.Group className="mb-3">
+                                <Form.Group className="mb-3" controlId="cognome">
                                     <Form.Label>Cognome</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="cognome"
                                         value={formData.cognome}
                                         onChange={handleChange}
-                                        required
                                     />
                                 </Form.Group>
-
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Data di Nascita</Form.Label>
+                                <Form.Group className="mb-3" controlId="dataDiNascita">
+                                    <Form.Label>Data di nascita</Form.Label>
                                     <Form.Control
                                         type="date"
                                         name="dataDiNascita"
                                         value={formData.dataDiNascita}
                                         onChange={handleChange}
-                                        required
-                                    />n
+                                    />
                                 </Form.Group>
-
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Indirizzo</Form.Label>
+                                <Form.Group className="mb-3" controlId="indirizzoCompleto">
+                                    <Form.Label>Indirizzo completo</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="indirizzoCompleto"
                                         value={formData.indirizzoCompleto}
                                         onChange={handleChange}
-                                        required
                                     />
                                 </Form.Group>
                             </>
                         )}
-
                         <Form.Group className="mb-3">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
@@ -375,33 +390,28 @@ const ShopCart = () => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                required
                             />
                         </Form.Group>
-
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3" controlId="password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                required
                             />
                         </Form.Group>
-
-                        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-
+                        {errorMessage && <Alert variant="danger" className="mt-3">{errorMessage}</Alert>}
                         <Button variant="primary" type="submit">
-                            {isLogin ? 'Login' : 'Registrati'}
+                            {isLogin ? 'Accedi' : 'Registrati'}
                         </Button>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
+                        <Modal.Footer>
                     <Button variant="secondary" onClick={() => setIsLogin(!isLogin)}>
                         {isLogin ? 'Registrati' : 'Hai già un account? Accedi'}
                     </Button>
                 </Modal.Footer>
+                    </Form>
+                </Modal.Body>
             </Modal>
         </section>
     );
