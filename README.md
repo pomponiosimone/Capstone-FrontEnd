@@ -1,8 +1,18 @@
-# React + Vite
+# Progetto React con Vite e Bootstrap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Questo progetto è una semplice applicazione web sviluppata utilizzando React.js e Vite come bundler. L'applicazione utilizza anche Bootstrap e React-Bootstrap per una facile implementazione dello stile e dei componenti.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Caratteristiche
+
+- Interfaccia lato client e lato admin interattiva
+- Componenti riutilizzabili grazie a React
+- Stile moderno e responsivo grazie a Bootstrap
+- Struttura di progetto funzionale, semplice e ben organizzata
+
+## Tecnologie Utilizzate
+
+- [React](https://reactjs.org/) - Una libreria JavaScript per costruire interfacce utente
+- [Vite](https://vitejs.dev/) - Un bundler di moduli per una rapida configurazione di progetti
+- [Bootstrap](https://getbootstrap.com/) - Un framework CSS per uno sviluppo front-end veloce
+- [React-Bootstrap](https://react-bootstrap.github.io/) - Integrazione di Bootstrap con React
