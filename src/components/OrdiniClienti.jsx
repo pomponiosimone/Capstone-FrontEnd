@@ -15,6 +15,7 @@ const OrdiniClienti = () => {
     const [totaleOrdine, setTotaleOrdine] = useState('');
     const [tipoSpedizione, setTipoSpedizione] = useState('');
     const [statoOrdine, setStatoOrdine] = useState('');
+    const [dataOrdine, setDataOrdine] = useState(''); 
 
     // GET ALL ORDERS
     useEffect(() => {
@@ -41,6 +42,42 @@ const OrdiniClienti = () => {
 
         fetchOrdini(); 
     }, []);
+
+    //Data Ordini
+    const fetchOrdiniByData = (data = null) => {
+        setLoading(true);
+        const url = data ? `http://localhost:3002/ordini/data/${data}` : 'http://localhost:3002/ordini/all';
+      
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Errore nella fetch degli ordini');
+            return response.json();
+        })
+        .then(data => {
+         
+            setOrdini(data || []); 
+          
+        })
+        .finally(() => {
+            setLoading(false); 
+        });
+    };
+
+    const handleDateChange = (event) => {
+        const selectedDate = event.target.value;
+        if (!selectedDate) {
+            alert('Please select a date.'); 
+            return;
+        }
+        setDataOrdine(selectedDate); 
+        fetchOrdiniByData(selectedDate); 
+    };
 
     // DELETE ORDER
     const handleDelete = (ordineId) => {
@@ -132,30 +169,28 @@ const OrdiniClienti = () => {
     if (loading) {
         return <div>Caricamento ordini...</div>;
     }
-
     return (
         <div className="ordini-clienti">
             <div className="ordini-titolo d-flex justify-content-center align-items-center mb-5">
-                <h1 className="fw-bold fs-2">Lista Ordini</h1>
+                <h1 className="fw-bold fs-2 me-2">Lista Ordini</h1>
             </div>
-            <Form className="formDataDash mt-5">
-                <div className="d-flex justify-content-between">
-                    <Form.Control type="date" className="dataDash" />
+            <Form className="formDataDash mt-5 ms-5">
+                <div className="d-flex justify-content-center ">
+                    <Form.Control type="date" className="dataDash" onChange={handleDateChange}  />
                 </div>
-                <div>
-                    <InputGroup className="searchDash">
-                        <InputGroup.Text id="basic-addon1"></InputGroup.Text>
-                        <FormControl type="search" placeholder="Cerca" aria-label="Cerca" />
-                    </InputGroup>
-                </div>
+           
+          
+               
             </Form>
+
             <div className="d-flex justify-content-center align-items-center contTab mt-3">
+                {/* Tabella Orizzontale per schermi grandi */}
                 <table className="table table-white table-striped align-items-center w-75 ms-5 me-5 tableOrrizonta">
                     <thead>
                         <tr>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                             <th scope="col">#</th>
-                            <th scope="col">N°</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Cognome</th>
                             <th scope="col">Email</th>
@@ -173,12 +208,21 @@ const OrdiniClienti = () => {
                                 <tr key={ordine.id || index}>
                                     <td>
                                         <button onClick={() => handleDelete(ordine.id)} className="button-gestione secchio me-2">
-                                            <i className="bi bi-trash" style={{ fontSize: '20px'}}></i>
+                                            <i className="bi bi-trash" style={{ fontSize: '20px' }}></i>
                                         </button>
                                     </td>
                                     <td>
-                                        <button onClick={() => handleEditClick(ordine)} className="button-gestione matita me-2">
-                                            <i className="bi bi-pencil" style={{ fontSize: '20px'}}></i>
+                                        <button onClick={() => {
+                                            setCliente(ordine.cliente);
+                                            setIndirizzoSpedizione(ordine.indirizzoSpedizione);
+                                            setMetodoPagamento(ordine.metodoPagamento);
+                                            setTotaleOrdine(ordine.totaleOrdine);
+                                            setTipoSpedizione(ordine.tipoSpedizione);
+                                            setStatoOrdine(ordine.statoOrdine);
+                                            setSelectedOrdine(ordine);
+                                            setShowModal(true);
+                                        }} className="button-gestione matita me-2">
+                                            <i className="bi bi-pencil" style={{ fontSize: '20px' }}></i>
                                         </button>
                                     </td>
                                     <td>{index + 1}</td>
@@ -200,19 +244,92 @@ const OrdiniClienti = () => {
                                                 </p>
                                             </div>
                                         ))}
-
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="10" className="text-center">Nessun dato disponibile</td>
+                                <td colSpan="11" className="text-center">Nessun dato disponibile</td>
                             </tr>
                         )}
                     </tbody>
                 </table>
+
+                {/* Tabella Verticale per schermi piccoli */}
+                <div className="d-flex justify-content-center align-items-center contTab mt-5 tableVertical">
+                    <div className="row w-75 ms-5 me-5 d-flex justify-content-center">
+                    {Array.isArray(ordini) && ordini.length > 0 ? (
+            ordini.map((ordine, index) => (
+              <div className="col-md-4" key={ordine.id || index}>
+                <table className="table table-white table-striped align-items-center">
+                  <thead>
+                    <tr>
+                      <th colSpan="2" className="text-center">
+                        Ordine #{index + 1}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Nome</td>
+                      <td>{ordine.cliente.nome}</td>
+                    </tr>
+                    <tr>
+                      <td>Cognome</td>
+                      <td>{ordine.cliente.cognome}</td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>{ordine.cliente.email}</td>
+                    </tr>
+                    <tr>
+                      <td>Data Ordine</td>
+                      <td>{new Date(ordine.dataOrdine).toLocaleDateString()}</td>
+                    </tr>
+                    <tr>
+                      <td>Totale Ordine</td>
+                      <td>{ordine.totaleOrdine} €</td>
+                    </tr>
+                    <tr>
+                      <td>Metodo Pagamento</td>
+                      <td>{ordine.metodoPagamento}</td>
+                    </tr>
+                    <tr>
+                      <td>Indirizzo Spedizione</td>
+                      <td>{ordine.indirizzoSpedizione}</td>
+                    </tr>
+                    <tr>
+                      <td>Stato Ordine</td>
+                      <td>{ordine.statoOrdine}</td>
+                    </tr>
+                    <tr>
+                      <td>Articoli</td>
+                      <td>
+                      {ordine.articoli.map((articolo) => (
+  <div key={articolo.id}>
+    <p>
+      <strong>{articolo.scarpa.nome}</strong> - 
+      Taglia: {articolo.taglia.taglia}, 
+      Quantità: {articolo.quantità}
+      
+    </p> 
+  </div>
+                        ))}
+                      </td> 
+                    </tr>
+                    </tbody>
+                                    </table>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="col-12 text-center">Nessun dato disponibile</div>
+                        )}
+               
+                    </div>
+                </div>
             </div>
 
+            {/* Modal per modificare un ordine */}
             <Modal className="modal1" show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Modifica Ordine</Modal.Title>
@@ -228,7 +345,7 @@ const OrdiniClienti = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formCognome">
-                            <Form.Label  className="mt-2">Cognome</Form.Label>
+                            <Form.Label className="mt-2">Cognome</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 value={cliente.cognome} 
@@ -236,7 +353,7 @@ const OrdiniClienti = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formEmail">
-                            <Form.Label  className="mt-2" >Email</Form.Label>
+                            <Form.Label className="mt-2">Email</Form.Label>
                             <Form.Control 
                                 type="email" 
                                 value={cliente.email} 
@@ -244,7 +361,7 @@ const OrdiniClienti = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formIndirizzo">
-                            <Form.Label  className="mt-2">Indirizzo di Spedizione</Form.Label>
+                            <Form.Label className="mt-2">Indirizzo di Spedizione</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 value={indirizzoSpedizione} 
@@ -252,18 +369,17 @@ const OrdiniClienti = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formMetodoPagamento">
-                            <Form.Label  className="mt-2">Metodo di Pagamento</Form.Label>
+                            <Form.Label className="mt-2">Metodo di Pagamento</Form.Label>
                             <Form.Select 
                                 value={metodoPagamento} 
                                 onChange={(e) => setMetodoPagamento(e.target.value)}>
                                 <option value="">Seleziona un metodo di pagamento</option>
                                 <option value="CONTANTI">CONTANTI</option>
                                 <option value="CARTADICREDITO">CARTA DI CREDITO</option>
-                                </Form.Select>
-                                </Form.Group>
-                          
+                            </Form.Select>
+                        </Form.Group>
                         <Form.Group controlId="formTotaleOrdine">
-                            <Form.Label  className="mt-2">Totale Ordine</Form.Label>
+                            <Form.Label className="mt-2">Totale Ordine</Form.Label>
                             <Form.Control 
                                 type="number" 
                                 value={totaleOrdine} 
@@ -271,18 +387,17 @@ const OrdiniClienti = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formTipoSpedizione">
-                            <Form.Label  className="mt-2">Tipo di Spedizione</Form.Label>
+                            <Form.Label className="mt-2">Tipo di Spedizione</Form.Label>
                             <Form.Select
-                                type="text" 
                                 value={tipoSpedizione} 
                                 onChange={(e) => setTipoSpedizione(e.target.value)}>
                                 <option value="">Seleziona il tipo di spedizione</option>
                                 <option value="DOMICILIO">DOMICILIO</option>
                                 <option value="RITIRO">RITIRO</option>
-                                </Form.Select>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="formStatoOrdine">
-                            <Form.Label  className="mt-2">Stato Ordine</Form.Label>
+                            <Form.Label className="mt-2">Stato Ordine</Form.Label>
                             <Form.Select 
                                 value={statoOrdine} 
                                 onChange={(e) => setStatoOrdine(e.target.value)}>
@@ -314,4 +429,4 @@ const OrdiniClienti = () => {
     );
 };
 
-export default OrdiniClienti; 
+export default OrdiniClienti;

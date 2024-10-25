@@ -87,3 +87,18 @@
 .containerCentrale{
   height: 130vh;
 }
+@media (max-width: 767px) {
+.containerCentrales{
+ 
+
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    
+    height:100%;
+}}
+@media (min-width: 768px) and (max-width: 4000px) {
+  .containerCentrales {
+    height: 100vh;
+  }
+}

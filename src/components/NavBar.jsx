@@ -37,7 +37,7 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className='testo-navbar' />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
           <Nav className="mx-auto d-flex align-items-center nav-links">
-            <Nav.Link href="#home" className="mx-3 navbar-custom-font">Chi Siamo?</Nav.Link>
+        
             <Nav.Link href="/" className="mx-3 navbar-custom-font">Home</Nav.Link>
             <NavDropdown title="Brand" id="basic-nav-dropdown" className="mx-3 navbar-custom-font">
               <NavDropdown.Item href="/Adidas">
@@ -66,6 +66,7 @@ function NavBar() {
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="/contatti" className="mx-3 navbar-custom-font">Help</Nav.Link>
+            <Nav.Link href="/cliente" className="mx-3 navbar-custom-font">Il tuo Profilo</Nav.Link>
           </Nav>
 
           <Form className="d-flex justify-content-center align-items-center">

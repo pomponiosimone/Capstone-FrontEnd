@@ -69,7 +69,7 @@ margin-top: 70px;
     }
   }
 
-@media screen and (min-width:769px){
+  @media screen and (min-width:767px){
     .tableVertical{
         display: none !important;
     }
@@ -121,7 +121,8 @@ height: 140vh ;
 }
 
 .tableVertical{
-    width: 100vh;
+    width: 100%;
+  
     display: flex;
     justify-content: center;
 }

@@ -231,7 +231,7 @@ const GestioneAdmin = () => {
             <Row className="pe-5 ps-5 mt-5">
                 <Col xs={12} className="mt-5"> 
                 <p className="fw-5 ms-2">Aggiungi sneakers 
-                <i class="bi bi-arrow-down-square-fill ms-3" style={{ fontSize: '22px', color: 'green'}} onClick={handleShowModal}></i>
+                <i className="bi bi-arrow-down-square-fill ms-3" style={{ fontSize: '22px', color: 'green'}} onClick={handleShowModal}></i>
                     </p>
                 </Col>
             </Row>

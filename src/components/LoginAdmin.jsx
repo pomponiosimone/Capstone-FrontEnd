@@ -26,11 +26,11 @@ const LoginAdmin = () => {
       });
 
       const result = await response.json();
-      console.log('Risultato della risposta:', result); 
+      
 
       if (response.ok) {
         localStorage.setItem('accessToken', result.accessToken); 
-        console.log('Access Token salvato:', result.accessToken); 
+       
         navigate('/menuAdmin');
         alert('Login successful!');
       } else {

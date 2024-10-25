@@ -70,9 +70,9 @@ const ShopCart = () => {
              
                 alert('Registrazione avvenuta con successo!');
                 setIsAuthenticated(true);
-                setClienteId(data.id);
-                setNomeCliente(data.nome)
-                setAddress(data.indirizzoCompleto); 
+                setClienteId(data.cliente.id);
+                setNomeCliente(data.cliente.nome)
+                setAddress(data.liente.indirizzoCompleto); 
                 setShowModal(false);
             } else {
                 const error = await response.json();
@@ -98,12 +98,12 @@ const ShopCart = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.nome)
+       
                 alert('Login avvenuto con successo!');
                 setIsAuthenticated(true);
-                setNomeCliente(data.nome)
-                setClienteId(data.id);
-                setAddress(data.indirizzoCompleto); 
+                setNomeCliente(data.cliente.nome)
+                setClienteId(data.cliente.id);
+                setAddress(data.cliente.indirizzoCompleto); 
                 setShowModal(false);
             } else {
                 const error = await response.json();
